@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-agent-injector-demo
+  namespace: default
+  labels:
+    app: vault-agent-injector-demo
+spec:
+  selector:
+    matchLabels:
+      app: vault-agent-injector-demo
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "vault-agent"
+        vault.hashicorp.com/agent-inject-secret-database-config.txt: "secret/data/database/config"
+      labels:
+        app: vault-agent-injector-demo
+    spec:
+      serviceAccountName: vault-agent
+      containers:
+        - name: orgchart
+          image: jweissig/app:0.0.1

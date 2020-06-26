@@ -1,0 +1,6 @@
+server:
+  affinity: ""
+  ha:
+    replicas: 1
+ui:
+  enabled: true
