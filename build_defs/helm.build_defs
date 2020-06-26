@@ -1,0 +1,24 @@
+subinclude("//build_defs:k8s")
+
+def helm_chart(name:str, src:str, install_path:str, namespace:str,
+                visibility:list=[], values_file:str=None, deps:list=[],
+                containers:list=[]):
+    values_files = f'--values $(location {values_file})' if values_file else ''
+
+    template_rule = genrule(
+        name = f"{name}#helm",
+        cmd =  [
+            f'helm template {name} --namespace {namespace} {values_files} $SRC/{install_path} > $OUT'
+        ],
+        srcs = [src],
+        outs = [f'{name}.yaml'],
+        deps = deps,
+        binary = True
+    )
+
+    k8s_config(
+        name = name,
+        srcs = [template_rule],
+        visibility = visibility,
+        containers = containers,
+    )
