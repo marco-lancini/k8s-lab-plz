@@ -5,7 +5,8 @@ Modular Kubernetes Lab which provides an easy and streamlined way (managed via `
 Supported components:
 
 1. [Vault](docs/vault.md)
-2. ...
+2. [ELK](docs/elk.md)
+3. ...
 
 
 ## Prerequisites
