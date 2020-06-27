@@ -1,8 +1,10 @@
 # K8S-LAB
 
-Modular Kubernetes Lab which provides an easy and streamlined way (managed via `plz`) to deploy a test cluster with support for different components.
+Modular Kubernetes Lab which provides an easy and streamlined way (managed via [please.build](https://please.build/)) to deploy a test cluster with support for different components.
 
-Supported components:
+Each component can be deployed in a repeatable way with one single command.
+
+Usage for supported components:
 
 1. [Vault](docs/vault.md)
 2. [ELK](docs/elk.md)
@@ -19,3 +21,17 @@ Ensure minikube is up and running:
 ```bash
 ❯ minikube start --cpus 4 --memory 6098
 ```
+
+
+## Roadmap
+* [X] Vault
+* [X] ELK
+* [ ] Prometheus & Grafana
+* [ ] Audit logging
+* [ ] Kafka
+* [ ] Istio
+* [ ] Private Registry
+* [ ] Gatekeeper
+* [ ] Starboard
+
+Interested in another component to be added? Raise an issue!

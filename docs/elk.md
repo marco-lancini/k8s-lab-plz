@@ -26,7 +26,7 @@ kibana-kb-84645887d8-9fcsf   0/1     Running   1          105m
 ```
 * Forwards the Kibana UI to http://127.0.0.1:5601
 
-![](.github/../../.github/components/elk_kibana.png)
+![](../.github/components/elk_kibana.png)
 
 * Forwards the Elasticsearch Service:
     * From inside the Kubernetes cluster: `curl -u '${ELASTIC_USER}:${ELASTIC_PASSWORD}' -k 'http://elasticsearch-es-http:9200'`
