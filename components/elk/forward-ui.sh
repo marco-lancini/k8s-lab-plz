@@ -7,8 +7,8 @@ ELASTIC_PASSWORD=$(kubectl -n elastic-system get secrets elasticsearch-es-elasti
 # Elasticsearch Endpoint
 #
 printf "[>] Forwarding Elasticsearch Service to 127.0.0.1:9200\n"
-printf "\t[*] From inside the Kubernetes cluster: curl -u '${ELASTIC_USER}:${ELASTIC_PASSWORD}' -k 'https://elasticsearch-es-http:9200'\n"
-printf "\t[*] From your local workstation: curl -u '${ELASTIC_USER}:${ELASTIC_PASSWORD}' -k 'https://localhost:9200'\n"
+printf "\t[*] From inside the Kubernetes cluster: curl -u '${ELASTIC_USER}:${ELASTIC_PASSWORD}' -k 'http://elasticsearch-es-http:9200'\n"
+printf "\t[*] From your local workstation: curl -u '${ELASTIC_USER}:${ELASTIC_PASSWORD}' -k 'http://localhost:9200'\n"
 kubectl -n elastic-system port-forward svc/elasticsearch-es-http 9200 &
 
 #
