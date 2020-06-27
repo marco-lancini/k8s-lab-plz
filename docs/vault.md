@@ -24,6 +24,8 @@ vault-helm-agent-injector-5d7c4965d7-7dnp9   1/1     Running   0          2m3s
 ```
 * Forwards Vault UI to http://127.0.0.1:8200
 
+![](../.github/components/vault_ui.png)
+
 ## Inject secrets into Pods
 For this setup, the Vault Agent has been given access to read any secret in the kv-v2 `secret/` backend,
 so any secret stored in that backend will be able to get picked by the Agent.
