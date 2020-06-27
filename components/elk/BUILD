@@ -30,3 +30,9 @@ k8s_config(
     name = "kibana",
     srcs = ["k8s/kibana.yaml"],
 )
+
+k8s_config(
+    name = "filebeats",
+    srcs = ["k8s/filebeats.yaml"],
+    visibility = ["//components/elk/..."]
+)
