@@ -45,7 +45,7 @@ To check the pod is healthy:
 Listening on port 8000...
 ```
 
-## References
+## References
 * [Vault Installation to Minikube via Helm](https://learn.hashicorp.com/vault/kubernetes/minikube)
 * [Injecting Secrets into Kubernetes Pods via Vault Sidecar](https://learn.hashicorp.com/vault/kubernetes/sidecar)
 * [Kubernetes authentication method](https://www.vaultproject.io/docs/auth/kubernetes.html)

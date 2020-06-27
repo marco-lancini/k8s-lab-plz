@@ -5,7 +5,8 @@ Modular Kubernetes Lab which provides an easy and streamlined way (managed via `
 Supported components:
 
 1. [Vault](docs/vault.md)
-2. ...
+2. [ELK](docs/elk.md)
+3. ...
 
 
 ## Prerequisites
@@ -16,5 +17,5 @@ Supported components:
 
 Ensure minikube is up and running:
 ```bash
-❯ minikube start --memory 4092
+❯ minikube start --cpus 4 --memory 6098
 ```
