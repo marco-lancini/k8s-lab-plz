@@ -17,5 +17,5 @@ Supported components:
 
 Ensure minikube is up and running:
 ```bash
-❯ minikube start --memory 4092
+❯ minikube start --cpus 4 --memory 6098
 ```
