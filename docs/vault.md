@@ -1,7 +1,6 @@
 # Vault Setup
 
 ## Deploy Vault
-
 ```bash
 ❯ plz run //components/vault:deploy
 ```
@@ -11,20 +10,19 @@
 * Enables Kubernetes backend (will print the root token to screen)
 * Setup the sidecar Agent, by creating a role/policy for the sidecar which allows it to read any secret in the kv-v2 `secret/` backend
 
-
 Verify pods are healthy:
 ```bash
-❯ k -n vault get po
+❯ kubectl -n vault get po
 NAME                                         READY   STATUS    RESTARTS   AGE
 vault-helm-0                                 1/1     Running   0          2m2s
 vault-helm-agent-injector-5d7c4965d7-7dnp9   1/1     Running   0          2m3s
 ```
 
 ## Access the Vault UI
-Forward Vault UI to `127.0.0.1:8200` (to login, you can use the token from `cluster-keys.json`):
 ```bash
 ❯ plz run //components/vault:ui
 ```
+* Forwards Vault UI to http://127.0.0.1:8200
 
 ## Inject secrets into Pods
 For this setup, the Vault Agent has been given access to read any secret in the kv-v2 `secret/` backend,
@@ -41,7 +39,7 @@ To run the example (which will create a secret at `secret/database/config` befor
 
 To check the pod is healthy:
 ```bash
-❯ k logs -f vault-agent-injector-demo-78d49f7c6-lx88q orgchart
+❯ kubectl logs -f vault-agent-injector-demo-78d49f7c6-lx88q orgchart
 Listening on port 8000...
 ```
 
