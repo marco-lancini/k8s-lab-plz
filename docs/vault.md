@@ -1,5 +1,6 @@
 # Vault Setup
 
+
 ## Deploy Vault
 ```bash
 ❯ plz run //components/vault:deploy
@@ -18,6 +19,7 @@ vault-helm-0                                 1/1     Running   0          2m2s
 vault-helm-agent-injector-5d7c4965d7-7dnp9   1/1     Running   0          2m3s
 ```
 
+
 ## Access the Vault UI
 ```bash
 ❯ plz run //components/vault:ui
@@ -25,6 +27,7 @@ vault-helm-agent-injector-5d7c4965d7-7dnp9   1/1     Running   0          2m3s
 * Forwards Vault UI to http://127.0.0.1:8200
 
 ![](../.github/components/vault_ui.png)
+
 
 ## Inject secrets into Pods
 For this setup, the Vault Agent has been given access to read any secret in the kv-v2 `secret/` backend,
@@ -44,6 +47,7 @@ To check the pod is healthy:
 ❯ kubectl logs -f vault-agent-injector-demo-78d49f7c6-lx88q orgchart
 Listening on port 8000...
 ```
+
 
 ## References
 * [Vault Installation to Minikube via Helm](https://learn.hashicorp.com/vault/kubernetes/minikube)

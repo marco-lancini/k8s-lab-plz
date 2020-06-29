@@ -1,5 +1,6 @@
 # ELK Setup
 
+
 ## Deploy ELK
 ```bash
 ❯ plz run //components/elk:deploy
@@ -19,6 +20,7 @@ elasticsearch-es-default-0   0/1     Running   1          105m
 filebeat-sjt84               1/1     Running   1          105m
 kibana-kb-84645887d8-9fcsf   0/1     Running   1          105m
 ```
+
 
 ## Access Elasticsearch and Kibana
 ```bash
@@ -52,6 +54,7 @@ kibana-kb-84645887d8-9fcsf   0/1     Running   1          105m
   "tagline" : "You Know, for Search"
 }
 ```
+
 
 ## References
 * [Getting started with Elastic Cloud on Kubernetes: Deployment](https://www.elastic.co/blog/getting-started-with-elastic-cloud-on-kubernetes-deployment)
