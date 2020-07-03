@@ -26,3 +26,18 @@ remote_file(
     hashes = [ECK_HASH],
     visibility = ["//components/elk/..."]
 )
+
+# ==============================================================================
+# PROMETHEUS
+# ==============================================================================
+PROMETHEUS_VERSION="8.15.6"
+PROMETHEUS_HASH="3938f67923067b23c2859b6a7e07b8edb96a13b8eaa0806e3f460ed4d59ff4d0"
+
+remote_file(
+    name = "helm-prometheus-tar",
+    out = "prometheus",
+    url = "https://kubernetes-charts.storage.googleapis.com/prometheus-operator-%s.tgz" % PROMETHEUS_VERSION,
+    hashes = [PROMETHEUS_HASH],
+    visibility = ["//components/prometheus/..."],
+    extract = True
+)
