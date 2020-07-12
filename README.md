@@ -27,19 +27,18 @@ Ensure minikube is up and running:
 
 
 ## Roadmap
-* [X] Vault
-* [X] ELK (Elasticsearch, Kibana, Filebeats)
-* [X] Metrics (Prometheus, Grafana, Alertmanager)
-* [ ] Kafka
-  * [X] Deployment
-  * [ ] Expose Prometheus metrics
-  * [ ] Add [Grafana dashboard](https://strimzi.io/docs/operators/latest/deploying.html#proc-kafka-exporter-enabling-str)
+* [X] ~~Vault~~
+* [X] ~~ELK (Elasticsearch, Kibana, Filebeats)~~
+* [X] ~~Metrics (Prometheus, Grafana, Alertmanager)~~
+* [X] ~~Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)~~
 * [ ] Istio
+* [ ] Gatekeeper
+* [ ] Falco
+* [ ] Starboard
 * [ ] Audit logging
 * [ ] Private Registry
-* [ ] Gatekeeper
-* [ ] Starboard
-* [ ] Falco
-* [ ] Hardcode third party images
 
 Interested in another component to be added? Raise an issue!
+
+For a more detailed view of what's coming up, please refer to the
+[Kanban board](https://github.com/marco-lancini/k8s-lab/projects/1).
