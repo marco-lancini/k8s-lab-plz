@@ -13,5 +13,4 @@ remote_file(
 filegroup(
     name = "helm_chart",
     srcs = ["helm.build_defs"],
-    visibility = ["PUBLIC"],
 )
