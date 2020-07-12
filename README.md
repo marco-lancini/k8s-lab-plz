@@ -6,11 +6,12 @@ Each component can be deployed in a repeatable way with one single command.
 
 Usage for supported components:
 
-| Component                                                         | Namespace        |
-| ----------------------------------------------------------------- | ---------------- |
-| [Vault](docs/vault.md)                                            | `vault`          |
-| [ELK (Elasticsearch, Kibana, Filebeats)](docs/elk.md)             | `elastic-system` |
-| [Metrics (Prometheus, Grafana, Alertmanager)](docs/prometheus.md) | `metrics`        |
+| Component                                                                 | Namespace        |
+| ------------------------------------------------------------------------- | ---------------- |
+| [Vault](docs/vault.md)                                                    | `vault`          |
+| [ELK (Elasticsearch, Kibana, Filebeats)](docs/elk.md)                     | `elastic-system` |
+| [Metrics (Prometheus, Grafana, Alertmanager)](docs/prometheus.md)         | `metrics`        |
+| [Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)](docs/kafka.md) | `kafka`          |
 
 
 ## Prerequisites
@@ -29,11 +30,16 @@ Ensure minikube is up and running:
 * [X] Vault
 * [X] ELK (Elasticsearch, Kibana, Filebeats)
 * [X] Metrics (Prometheus, Grafana, Alertmanager)
-* [ ] Audit logging
 * [ ] Kafka
+  * [X] Deployment
+  * [ ] Expose Prometheus metrics
+  * [ ] Add [Grafana dashboard](https://strimzi.io/docs/operators/latest/deploying.html#proc-kafka-exporter-enabling-str)
 * [ ] Istio
+* [ ] Audit logging
 * [ ] Private Registry
 * [ ] Gatekeeper
 * [ ] Starboard
+* [ ] Falco
+* [ ] Hardcode third party images
 
 Interested in another component to be added? Raise an issue!
