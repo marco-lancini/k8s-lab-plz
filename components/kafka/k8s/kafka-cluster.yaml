@@ -31,3 +31,8 @@ spec:
   entityOperator:
     topicOperator: {}
     userOperator: {}
+  kafkaExporter:
+    groupRegex: ".*"
+    topicRegex: ".*"
+    logging: info
+    enableSaramaLogging: true
