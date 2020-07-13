@@ -41,3 +41,17 @@ remote_file(
     visibility = ["//components/prometheus/..."],
     extract = True
 )
+
+# ==============================================================================
+# KAFKA
+# ==============================================================================
+KAFKA_OPERATOR_HASH="988275cc42e100315f464bbfbe37934b28d25edb"
+
+remote_file(
+    name = "kafka-operator",
+    out = "kafka-operator.yaml",
+    url = "https://strimzi.io/install/latest?namespace=kafka",
+    hashes = [KAFKA_OPERATOR_HASH],
+    visibility = ["//components/kafka/..."],
+    extract = False
+)

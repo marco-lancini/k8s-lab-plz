@@ -6,11 +6,12 @@ Each component can be deployed in a repeatable way with one single command.
 
 Usage for supported components:
 
-| Component                                                         | Namespace        |
-| ----------------------------------------------------------------- | ---------------- |
-| [Vault](docs/vault.md)                                            | `vault`          |
-| [ELK (Elasticsearch, Kibana, Filebeats)](docs/elk.md)             | `elastic-system` |
-| [Metrics (Prometheus, Grafana, Alertmanager)](docs/prometheus.md) | `metrics`        |
+| Component                                                                 | Namespace        |
+| ------------------------------------------------------------------------- | ---------------- |
+| [Vault](docs/vault.md)                                                    | `vault`          |
+| [ELK (Elasticsearch, Kibana, Filebeats)](docs/elk.md)                     | `elastic-system` |
+| [Metrics (Prometheus, Grafana, Alertmanager)](docs/prometheus.md)         | `metrics`        |
+| [Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)](docs/kafka.md) | `kafka`          |
 
 
 ## Prerequisites
@@ -26,14 +27,18 @@ Ensure minikube is up and running:
 
 
 ## Roadmap
-* [X] Vault
-* [X] ELK (Elasticsearch, Kibana, Filebeats)
-* [X] Metrics (Prometheus, Grafana, Alertmanager)
-* [ ] Audit logging
-* [ ] Kafka
+* [X] ~~Vault~~
+* [X] ~~ELK (Elasticsearch, Kibana, Filebeats)~~
+* [X] ~~Metrics (Prometheus, Grafana, Alertmanager)~~
+* [X] ~~Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)~~
 * [ ] Istio
-* [ ] Private Registry
 * [ ] Gatekeeper
+* [ ] Falco
 * [ ] Starboard
+* [ ] Audit logging
+* [ ] Private Registry
 
 Interested in another component to be added? Raise an issue!
+
+For a more detailed view of what's coming up, please refer to the
+[Kanban board](https://github.com/marco-lancini/k8s-lab/projects/1).
