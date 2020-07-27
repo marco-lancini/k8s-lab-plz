@@ -6,12 +6,12 @@ Each component can be deployed in a repeatable way with one single command.
 
 Usage for supported components:
 
-| Component                                                                 | Namespace        |
-| ------------------------------------------------------------------------- | ---------------- |
-| [Vault](docs/vault.md)                                                    | `vault`          |
-| [ELK (Elasticsearch, Kibana, Filebeats)](docs/elk.md)                     | `elastic-system` |
-| [Metrics (Prometheus, Grafana, Alertmanager)](docs/prometheus.md)         | `metrics`        |
-| [Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)](docs/kafka.md) | `kafka`          |
+| Component                                                | Usage                                     | Namespace        |
+| -------------------------------------------------------- | ---------------------------------------- | ---------------- |
+| Vault                                                    | [docs/vault.md](docs/vault.md)           | `vault`          |
+| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs/elk.md](docs/elk.md)               | `elastic-system` |
+| Metrics (Prometheus, Grafana, Alertmanager)              | [docs/prometheus.md](docs/prometheus.md) | `metrics`        |
+| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs/kafka.md](docs/kafka.md)           | `kafka`          |
 
 
 ## Prerequisites
