@@ -1,0 +1,35 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Global Style
+[*]
+charset = utf-8
+indent_style = space
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Python
+[{*.{py,build_defs},BUILD}]
+indent_size = 4
+max_line_length = 100
+
+# Frontend
+[*.{js,json,jsx,ts,tsx,html,scss,css}]
+indent_size = 2
+max_line_length = 120
+
+# SH
+[*.sh]
+indent_size = 4
+
+# Java
+[*.java]
+indent_size = 2
+max_line_length = 120
+
+# Go
+[*.go]
+indent_style = tab
