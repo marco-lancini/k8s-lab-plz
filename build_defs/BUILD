@@ -14,3 +14,8 @@ filegroup(
     name = "helm_chart",
     srcs = ["helm.build_defs"],
 )
+
+filegroup(
+    name = "k8s_namespaced",
+    srcs = ["k8s_namespaced.build_defs"],
+)

@@ -1,0 +1,80 @@
+
+def k8s_config_namespaced(name:str, srcs:list, namespace:str, containers:list=[], params:dict=None, visibility:list=None, labels:list=[], vendorised:bool=False, deps:list=[]):
+    """Extends https://raw.githubusercontent.com/thought-machine/pleasings/master/k8s/k8s.build_defs to add support for namespaced resources
+    """
+    returned_targets = {}
+    containers = [c for c in containers if c]
+
+    # Make sure to canonicalise each container (they could be in the form of ':local_container').
+    containers = [canonicalise(container) for container in containers]
+
+    # This will template image tags into k8s resource files that reference docker images by build target.
+    fqns = [f'{c}_fqn' for c in containers]
+    # Tag with appropriate labels
+    labels += ['k8s'] + ['container:' + c for c in containers]
+
+    # Template each config YAML and collect them in the filegroup.
+    rules = []
+
+    # Now that we have a collection of files, each containing a container name + label, we can
+    # create a multi-expression sed command to replace a build target with the actual containers.
+    exports = [f'export {k}={v}' for k,v in params.items()] if params else []
+    replacement_command = 'cat'
+    envsubst_vars = ",".join(['${%s}' % k for k in params.keys()] if params else [])
+    check_rule = None
+    if containers:
+        # Pseudo build rule to check that the specified containers exist in the k8s files.
+        # Has to be a separate rule because containers might only occur in one of the files.
+        check_rule = build_rule(
+            name=name,
+            tag='check',
+            cmd='for IMG in %s; do grep "$IMG" $SRCS || (echo "Image $IMG not in k8s files"; exit 1); done' % ' '.join(containers),
+            srcs=srcs,
+        )
+
+        # macos sed only supports posix regex expressions so escape sequences like \b don't work
+        boundary_expr = "\\b" if CONFIG.OS != 'darwin' else ""
+        subcommands = ' '.join([
+            f'-e "s|{container}{boundary_expr}|$(cat $(location {fqn}))|g"'
+            for container, fqn in sorted(zip(containers, fqns))
+        ])
+        replacement_command = f'sed {subcommands}'
+
+    for src in srcs:
+        cleaned_src = src.replace('/', '_').replace(':', '_')
+        src_tag = cleaned_src.replace('.', '_')
+        src_genrule_name = f'_{name}#{src_tag}'
+        if cleaned_src.endswith('_yaml'):
+            cleaned_src = cleaned_src[:-5] + '.yaml'
+        rules.append(f':{src_genrule_name}')
+        genrule(
+            name = src_genrule_name,
+            srcs = [src],
+            outs = ['templated_' + cleaned_src],
+            cmd = exports + [f"cat $SRCS | {replacement_command} | envsubst '{envsubst_vars}' > $OUT"],
+            deps = fqns + [check_rule if check_rule else None],
+        )
+
+    files = filegroup(
+        name = name,
+        srcs = rules,
+        visibility = visibility,
+        labels = labels,
+    )
+
+    # Generate a rule to push the configs.
+    sh_cmd(
+        name = name + '_push',
+        cmd = ' && '.join([f'kubectl apply -n {namespace} -f $(out_location {x})' for x in rules]),
+        deps = rules,
+        labels = ["k8s-push"],
+    )
+
+    # Generate a rule to cleanup the configs.
+    sh_cmd(
+        name = name + '_cleanup',
+        cmd = ' && '.join([f'kubectl delete --ignore-not-found -f $(out_location {x})' for x in rules]),
+        deps = rules,
+        labels = ["k8s-cleanup"],
+    )
+    return files
