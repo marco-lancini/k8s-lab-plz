@@ -45,12 +45,13 @@ remote_file(
 # ==============================================================================
 # KAFKA
 # ==============================================================================
-KAFKA_OPERATOR_HASH="988275cc42e100315f464bbfbe37934b28d25edb"
+KAFKA_OPERATOR_VERSION="0.20.0"
+KAFKA_OPERATOR_HASH="c065c9b075b1bdfb59d9d2444e3cda86c14942d2a3da86e2e7b377b64cfa3d06"
 
 remote_file(
     name = "kafka-operator",
     out = "kafka-operator.yaml",
-    url = "https://strimzi.io/install/latest?namespace=kafka",
+    url = "https://github.com/strimzi/strimzi-kafka-operator/releases/download/%s/strimzi-cluster-operator-%s.yaml" % (KAFKA_OPERATOR_VERSION, KAFKA_OPERATOR_VERSION),
     hashes = [KAFKA_OPERATOR_HASH],
     visibility = ["//components/kafka/..."],
     extract = False
