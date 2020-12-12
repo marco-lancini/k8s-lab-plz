@@ -19,6 +19,7 @@ Usage for supported components:
 * Docker (see [official docs](https://docs.docker.com/get-docker/) for your OS)
 * Plz (see [official docs](https://please.build/quickstart.html) for your OS)
 * Helm 3 (see [official docs](https://helm.sh/docs/intro/install/) for your OS)
+* JQ (see [offical docs](https://stedolan.github.io/jq/))
 
 Ensure minikube is up and running:
 ```bash
