@@ -1,0 +1,3 @@
+user=marco-lancini
+project=k8s-lab-plz
+add-sections={"components":{"prefix":"**COMPONENTS:**","labels":["component"]},"enhancement":{"prefix":"**ENHANCEMENTS:**","labels":["enhancement"]},"cicd":{"prefix":"**CI/CD:**","labels":["ci/cd"]},"documentation":{"prefix":"**DOCUMENTATION:**","labels":["documentation"]}}
