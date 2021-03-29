@@ -1,0 +1,18 @@
+build-defs:
+  - build_defs/**/*
+
+component:
+  - components/**/*
+  - third_party/**/*
+
+documentation:
+  - docs/**/*
+  - README.md
+
+ci/cd:
+  - .github/**/*
+  - .github_changelog_generator
+  - .plzconfig
+  - .pre-commit-config.yaml
+  - CHANGELOG.md
+  - CODEOWNERS
