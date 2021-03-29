@@ -1,0 +1,16 @@
+server:
+  affinity: ''
+  ha:
+    replicas: 1
+  dataStorage:
+    enabled: true
+    size: 1Gi
+    mountPath: '/etc/plz-k8s-lab/vault/data/'
+    storageClass: vault-storage
+    accessMode: ReadWriteOnce
+    annotations: {}
+
+ui:
+  enabled: true
+
+storageClass: vault-storage
