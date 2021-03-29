@@ -1,2 +1,3 @@
 # Ignore MD for docs/
 *.md
+*.markdown
