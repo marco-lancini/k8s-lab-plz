@@ -12,14 +12,14 @@ metadata:
     kubernetes.io/ingress.class: haproxy
 spec:
   rules:
-  # Replace with IP of host
-  - host: product.192.168.1.151.nip.io
-    http:
-      paths:
-        - path: /
-          backend:
-            serviceName: productpage
-            servicePort: 9080
+    # Replace with IP of host
+    - host: product.192.168.1.151.nip.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: productpage
+              servicePort: 9080
 ---
 apiVersion: v1
 kind: Service
@@ -72,3 +72,4 @@ spec:
           ports:
             - containerPort: 9080
 ---
+
