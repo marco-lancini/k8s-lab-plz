@@ -56,3 +56,60 @@ remote_file(
     visibility = ["//components/kafka/..."],
     extract = False
 )
+
+# ==============================================================================
+# NGINX
+# ==============================================================================
+NGINX_OPERATOR_VERSION="0.44.0"
+NGINX_OPERATOR_HASH="d5071e1d983c130641bf6261cf4ef61f58bd422d80a888946db27c6660190bc0"
+
+remote_file(
+    name = "nginx-operator",
+    out = "nginx-operator.yaml",
+    url = "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v%s/deploy/static/provider/baremetal/deploy.yaml" % NGINX_OPERATOR_VERSION,
+    hashes = [NGINX_OPERATOR_HASH],
+    visibility = ["//components/..."],
+    extract = False
+)
+
+# ==============================================================================
+# METALLB
+# ==============================================================================
+METALLB_NAMESPACE_VERSION="0.9.5"
+METALLB_NAMESPACE_HASH="51a1c68cd8f92e4653075ea978642689a7786099000f9017a616567bab76114f"
+
+remote_file(
+    name = "metallb-namespace",
+    out = "metallb-namespace.yaml",
+    url = "https://raw.githubusercontent.com/metallb/metallb/v%s/manifests/namespace.yaml" % METALLB_NAMESPACE_VERSION,
+    hashes = [METALLB_NAMESPACE_HASH],
+    visibility = ["//components/baremetal/..."],
+    extract = False
+)
+
+METALLB_DEPLOYMENT_VERSION="0.9.5"
+METALLB_DEPLOYMENT_HASH="15c30085c20bbc36c2ce81881180b75e503a5d95bacce45733e3b5131a7d866b"
+
+remote_file(
+    name = "metallb-deployment",
+    out = "metallb-deployment.yaml",
+    url = "https://raw.githubusercontent.com/metallb/metallb/v%s/manifests/metallb.yaml" % METALLB_DEPLOYMENT_VERSION,
+    hashes = [METALLB_DEPLOYMENT_HASH],
+    visibility = ["//components/baremetal/..."],
+    extract = False
+)
+
+# ==============================================================================
+# HAPROXY
+# ==============================================================================
+HAPROXY_VERSION="0.12.2"
+HAPROXY_HASH="819cb1df52060f35caa8cb81ace715bfe90dca2fed34344e00a670d25b0df941"
+
+remote_file(
+    name = "helm-haproxy-tar",
+    out = "haproxy",
+    url = "https://github.com/haproxy-ingress/charts/releases/download/%s/haproxy-ingress-%s.tgz" % (HAPROXY_VERSION, HAPROXY_VERSION),
+    hashes = [HAPROXY_HASH],
+    visibility = ["//components/baremetal/..."],
+    extract = True
+)

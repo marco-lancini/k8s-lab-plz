@@ -4,6 +4,7 @@ repos:
     rev: v3.3.0
     hooks:
       - id: check-yaml
+        args: [--allow-multiple-documents]
       - id: check-json
       - id: detect-aws-credentials
       - id: detect-private-key
