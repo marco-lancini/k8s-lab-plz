@@ -3,9 +3,10 @@
 
 ## Deploy Vault
 ```bash
-❯ plz run //components/vault:deploy
+❯ plz run //components/vault:deploy [minikube|baremetal]
 ```
 * Creates `vault` namespace
+* Creates a StorageClass and a PersistentVolume (baremetal only)
 * Fetches and deploys the Vault Helm chart in the `vault` namespace
 * Initializes (unseal) Vault
 * Enables Kubernetes backend (will print the root token to screen)
@@ -17,6 +18,13 @@ Verify pods are healthy:
 NAME                                         READY   STATUS    RESTARTS   AGE
 vault-helm-0                                 1/1     Running   0          2m2s
 vault-helm-agent-injector-5d7c4965d7-7dnp9   1/1     Running   0          2m3s
+```
+
+📝 **NOTE FOR BAREMETAL**: before deploying, make sure to prepare
+the data folder on target host (and to remove the same folder to reset the installation):
+```bash
+❯ sudo mkdir -p /etc/plz-k8s-lab/vault/data/
+❯ sudo sudo chmod -R a+rw /etc/plz-k8s-lab/vault/
 ```
 
 
