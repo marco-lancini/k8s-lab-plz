@@ -13,8 +13,13 @@ sh_binary(
 )
 
 # ==============================================================================
-# Deploy via Helm
+# Deploy Vault
 # ==============================================================================
+k8s_config(
+    name = "vault-namespace",
+    srcs = ["k8s/vault-namespace.yaml"],
+)
+
 helm_chart(
     name = "vault-helm",
     src = "//third_party:helm-vault-tar",
@@ -28,16 +33,41 @@ helm_chart(
     ]
 )
 
-k8s_config(
-    name = "vault-namespace",
-    srcs = ["k8s/vault-namespace.yaml"],
-)
-
 filegroup(
     name = "vault-helm-values",
     srcs = [
         "setup/vault-values.yaml",
     ],
+)
+
+helm_chart(
+    name = "vault-helm-baremetal",
+    src = "//third_party:helm-vault-tar",
+    install_path = "vault-helm-0.6.0/",
+    namespace = "vault",
+    visibility = ["//components/vault/..."],
+    values_file = ":vault-helm-values-baremetal",
+    deps = [
+        ":vault-namespace",
+        ":vault-helm-values-baremetal"
+    ]
+)
+
+filegroup(
+    name = "vault-helm-values-baremetal",
+    srcs = [
+        "setup/vault-values-baremetal.yaml",
+    ],
+)
+
+k8s_config(
+    name = "vault-pv-baremetal",
+    srcs = ["setup/vault-pv-baremetal.yaml"],
+)
+
+k8s_config(
+    name = "vault-ingress",
+    srcs = ["k8s/vault-ui-ingress.yaml"],
 )
 
 # ==============================================================================

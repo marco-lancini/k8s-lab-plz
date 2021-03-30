@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: vault-ingress
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+spec:
+  rules:
+    # Replace with IP of host
+    - host: vault.192.168.1.151.nip.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: vault-helm-baremetal-ui
+              servicePort: 8200
