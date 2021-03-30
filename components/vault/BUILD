@@ -13,7 +13,7 @@ sh_binary(
 )
 
 # ==============================================================================
-# Deploy via Helm
+# Deploy Vault
 # ==============================================================================
 k8s_config(
     name = "vault-namespace",
@@ -63,6 +63,11 @@ filegroup(
 k8s_config(
     name = "vault-pv-baremetal",
     srcs = ["setup/vault-pv-baremetal.yaml"],
+)
+
+k8s_config(
+    name = "vault-ingress",
+    srcs = ["k8s/vault-ui-ingress.yaml"],
 )
 
 # ==============================================================================
