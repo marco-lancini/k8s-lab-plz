@@ -1,0 +1,37 @@
+def docker_repository(name:str, srcs:list=[], image:str=None, version:str='',
+                 dockerfile:str='Dockerfile', repo:str='', labels:list=[],
+                 run_args:str='', test_only:bool=False, visibility:list=None):
+    """docker_repository defines a build rule for a pulling a Docker repository/image.
+
+    Args:
+      name: Name of the rule.
+      image: Name of the image to create.
+      version: Version to tag the image with.
+      repo: Repository to load the image from. If not given it will use
+            default-docker-repo in the [buildconfig] section of your .plzconfig.
+      visibility: Visibility of this rule.
+    """
+    # Image and repo names
+    image = image or name
+    if not repo:
+        repo = check_config('DEFAULT_DOCKER_REPO', 'buildconfig', 'Docker', 'hub.docker.com')
+
+    # The FQN defines a unique hash for the image.
+    if len(repo) > 1:
+        fqn = f"{repo}/{image}:{version}"
+    else:
+        fqn = f"{image}:{version}"
+    build_rule(
+        name = f'{name}_fqn',
+        cmd = f'echo -n "{fqn}" >> $OUT',
+        outs = [f'{name}_fqn'],
+        visibility = visibility,
+    )
+
+    # PULL
+    cmd = f'docker pull {fqn}'
+    docker_pull = sh_cmd(
+        name = f'{name}_pull',
+        cmd = cmd,
+        visibility = visibility,
+    )
