@@ -11,6 +11,11 @@ remote_file(
 )
 
 filegroup(
+    name = "docker_repository",
+    srcs = ["docker_repository.build_defs"],
+)
+
+filegroup(
     name = "helm_chart",
     srcs = ["helm.build_defs"],
 )

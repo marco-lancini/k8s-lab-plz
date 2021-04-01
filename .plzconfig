@@ -7,3 +7,6 @@
 ; when you change it all users will automatically get updated.
 ; [please]
 ; version = 14.5.2
+
+[buildconfig]
+default-docker-repo = " "
