@@ -68,7 +68,7 @@ requires the `secret/data/database/config` secret.
 
 To run the example (which will create a secret at `secret/database/config` before deploying the pod):
 ```bash
-❯ plz run //components/vault:sample-deployment
+❯ plz run //components/vault:sample-deployment [minikube|baremetal]
 ```
 
 To check the pod is healthy:
