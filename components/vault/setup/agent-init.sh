@@ -22,6 +22,6 @@ kubectl -n ${NAMESPACE} exec ${POD} -- vault policy write vault-agent /tmp/polic
 kubectl -n ${NAMESPACE} exec ${POD} -- vault write \
         auth/kubernetes/role/vault-agent \
         bound_service_account_names=vault-agent \
-        bound_service_account_namespaces=default \
+        bound_service_account_namespaces=* \
         policies=vault-agent \
         ttl=24h
