@@ -1,5 +1,6 @@
 .DS_Store
 .env
+__temp
 
 # Please output directory
 plz-out
