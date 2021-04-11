@@ -6,9 +6,6 @@ TARGET=$1
 if [[ $# -lt 1 ]] ; then
     TARGET="minikube"
 fi
-VAULT_NAMESPACE="vault"
-VAULT_SELECTOR="app.kubernetes.io/name=vault,component=server"
-NEO4J_PASSWORD_LOCATION="secret/cartography/neo4j-password"
 
 # Setup namespace:
 #   - Create `cartography` namespace

@@ -3,6 +3,9 @@
 NAMESPACE=$1
 TARGET=$2
 SELECTOR=$3
+VAULT_NAMESPACE="vault"
+VAULT_SELECTOR="app.kubernetes.io/name=vault,component=server"
+NEO4J_PASSWORD_LOCATION="secret/cartography/neo4j-password"
 
 
 # NEO4j PASSWORD
