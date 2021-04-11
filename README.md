@@ -13,6 +13,7 @@ Usage for supported components:
 | ELK (Elasticsearch, Kibana, Filebeats)                   | [docs/elk.md](docs/elk.md)                         | `elastic-system`                                 |
 | Metrics (Prometheus, Grafana, Alertmanager)              | [docs/prometheus.md](docs/prometheus.md)           | `metrics`                                        |
 | Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs/kafka.md](docs/kafka.md)                     | `kafka`                                          |
+| Cartography                                              | [docs/cartography.md](docs/cartography.md)         | `cartography`                                    |
 
 
 ## Prerequisites
@@ -32,6 +33,7 @@ Usage for supported components:
 * [X] ~~Metrics (Prometheus, Grafana, Alertmanager)~~
 * [X] ~~Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)~~
 * [X] ~~Baremetal Setup (Load Balancing, Volumes, etc.)~~
+* [X] ~~Cartography~~
 * [ ] Istio
 * [ ] Gatekeeper
 * [ ] Falco
