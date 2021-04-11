@@ -3,6 +3,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: vault-ingress
+  namespace: vault
   annotations:
     kubernetes.io/ingress.class: haproxy
 spec:
@@ -13,5 +14,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: vault-helm-baremetal-ui
+              serviceName: vault-baremetal-helm-ui
               servicePort: 8200

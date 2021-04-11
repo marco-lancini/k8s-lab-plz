@@ -1,3 +1,5 @@
+storageClass: vault-storage
+
 server:
   affinity: ''
   ha:
@@ -12,5 +14,3 @@ server:
 
 ui:
   enabled: true
-
-storageClass: vault-storage

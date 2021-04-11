@@ -1,17 +1,19 @@
 #! /bin/bash
 
+NAMESPACE="vault"
 TARGET=$1
 if [[ $# -lt 1 ]] ; then
-    TARGE="minikube"
+    TARGET="minikube"
 fi
-if [[ $TARGET == "baremetal" ]]
-then
-    SVC="vault-helm-baremetal-ui"
-else
-    SVC="vault-helm-ui"
-fi
+KEY_FILE="cluster-keys-${TARGET}.json"
+SELECTOR="app.kubernetes.io/name=vault-ui"
 
-VAULT_ROOT_TOKEN=$(cat cluster-keys.json | jq -r ".root_token")
+# Should be:
+#   - Baremetal: vault-helm-baremetal-ui
+#   - Minikube: vault-helm-ui
+SERVICE_NAME=$(plz run //common:get_resource_from_selector ${NAMESPACE} svc ${SELECTOR})
+
+VAULT_ROOT_TOKEN=$(cat ${KEY_FILE} | jq -r ".root_token")
 printf "[+] Forwarding Vault UI to http://127.0.0.1:8200\n"
 printf "\t[*] Root Token: ${VAULT_ROOT_TOKEN}\n"
-kubectl -n vault port-forward svc/${SVC} 8200
+kubectl -n vault port-forward svc/${SERVICE_NAME} 8200
