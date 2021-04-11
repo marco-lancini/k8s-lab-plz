@@ -1,9 +1,10 @@
 .DS_Store
 .env
+__temp
 
 # Please output directory
 plz-out
 pleasew
 
 # Vault
-cluster-keys.json
+cluster-keys*.json

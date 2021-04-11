@@ -13,11 +13,18 @@ sh_binary(
 )
 
 # ==============================================================================
-# Deploy Vault
+# Deploy Vault - MINIKUBE
 # ==============================================================================
 k8s_config(
     name = "vault-namespace",
-    srcs = ["k8s/vault-namespace.yaml"],
+    srcs = ["deployment/vault-namespace.yaml"],
+)
+
+filegroup(
+    name = "vault-helm-values",
+    srcs = [
+        "deployment/vault-helm-values.yaml",
+    ],
 )
 
 helm_chart(
@@ -33,41 +40,37 @@ helm_chart(
     ]
 )
 
+# ==============================================================================
+# Deploy Vault - BAREMETAL
+# ==============================================================================
+k8s_config(
+    name = "vault-baremetal-pv",
+    srcs = ["baremetal/vault-pv.yaml"],
+)
+
 filegroup(
-    name = "vault-helm-values",
+    name = "vault-baremetal-helm-values",
     srcs = [
-        "setup/vault-values.yaml",
+        "baremetal/vault-helm-values.yaml",
     ],
 )
 
 helm_chart(
-    name = "vault-helm-baremetal",
+    name = "vault-baremetal-helm",
     src = "//third_party:helm-vault-tar",
     install_path = "vault-helm-0.6.0/",
     namespace = "vault",
     visibility = ["//components/vault/..."],
-    values_file = ":vault-helm-values-baremetal",
+    values_file = ":vault-baremetal-helm-values",
     deps = [
         ":vault-namespace",
-        ":vault-helm-values-baremetal"
+        ":vault-baremetal-helm-values"
     ]
 )
 
-filegroup(
-    name = "vault-helm-values-baremetal",
-    srcs = [
-        "setup/vault-values-baremetal.yaml",
-    ],
-)
-
 k8s_config(
-    name = "vault-pv-baremetal",
-    srcs = ["setup/vault-pv-baremetal.yaml"],
-)
-
-k8s_config(
-    name = "vault-ingress",
-    srcs = ["k8s/vault-ui-ingress.yaml"],
+    name = "vault-baremetal-ingress",
+    srcs = ["baremetal/vault-ui-ingress.yaml"],
 )
 
 # ==============================================================================
@@ -81,27 +84,22 @@ sh_binary(
 # ==============================================================================
 # Setup sidecar Agent
 # ==============================================================================
-sh_binary(
-    name = "agent-init",
-    main = "setup/agent-init.sh",
-    data = [
-        ":agent-values"
-    ],
-    deps = [
-        ":agent-values"
-    ]
-)
-
 filegroup(
-    name = "agent-values",
+    name = "agent-policy",
     srcs = [
         "setup/agent-policy.json",
     ],
 )
 
-k8s_config(
-    name = "agent-service-account",
-    srcs = ["k8s/agent-service-account.yaml"],
+sh_binary(
+    name = "agent-init",
+    main = "setup/agent-init.sh",
+    data = [
+        ":agent-policy"
+    ],
+    deps = [
+        ":agent-policy"
+    ]
 )
 
 # ==============================================================================
@@ -109,10 +107,13 @@ k8s_config(
 # ==============================================================================
 k8s_config(
     name = "k8s-sample-deployment",
-    srcs = ["k8s/sample-deployment.yaml"],
+    srcs = [
+        "sample/agent-service-account.yaml",
+        "sample/sample-deployment.yaml"
+    ],
 )
 
 sh_binary(
     name = "sample-deployment",
-    main = "sample.sh",
+    main = "sample/deploy.sh",
 )

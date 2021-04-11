@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vault-agent-injector-demo
-  namespace: default
+  namespace: vault
   labels:
     app: vault-agent-injector-demo
 spec:
@@ -13,9 +13,9 @@ spec:
   template:
     metadata:
       annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "vault-agent"
-        vault.hashicorp.com/agent-inject-secret-database-config.txt: "secret/data/database/config"
+        vault.hashicorp.com/agent-inject: 'true'
+        vault.hashicorp.com/role: 'vault-agent'
+        vault.hashicorp.com/agent-inject-secret-database-config.txt: 'secret/data/database/config'
       labels:
         app: vault-agent-injector-demo
     spec:
