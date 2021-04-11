@@ -42,15 +42,15 @@ the data folder on the host (and to remove the same folder to reset the installa
 
 ### Via Ingress on Baremetal
 ```bash
-❯ plz run //components/vault:vault-ingress_push
+❯ plz run //components/vault:vault-baremetal-ingress_push
 
-❯ kubectl get ingress
+❯ kubectl -n vault get ingress
 NAME            CLASS    HOSTS                        ADDRESS   PORTS   AGE
 vault-ingress   <none>   vault.192.168.1.151.nip.io             80      49s
 ```
 
 📝 **NOTE**: before deploying, make sure to replace the host IP address in
-`components/vault/k8s/vault-ui-ingress.yaml`.
+`components/vault/baremetal/vault-ui-ingress.yaml`.
 
 This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
 
@@ -59,12 +59,10 @@ This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](
 
 
 ## Inject secrets into Pods
-For this setup, the Vault Agent has been given access to read any secret in the kv-v2 `secret/` backend,
-so any secret stored in that backend will be able to get picked by the Agent.
+For this setup, the Vault Agent has been given access to read any secret in the kv-v2 `secret/` backend, so any secret stored in that backend will be able to get picked by the Agent.
 
 In addition, the Vault Agent injector only modifies a deployment if it contains a specific set of annotations. An existing deployment may have its definition patched to include the necessary annotations.
-A sample is provided at `//k8s-lab/components/vault/k8s/sample-deployment.yaml`, where the deployment
-requires the `secret/data/database/config` secret.
+A sample is provided at `components/vault/sample/sample-deployment.yaml`, where the deployment requires the `secret/data/database/config` secret.
 
 To run the example (which will create a secret at `secret/database/config` before deploying the pod):
 ```bash
@@ -73,7 +71,7 @@ To run the example (which will create a secret at `secret/database/config` befor
 
 To check the pod is healthy:
 ```bash
-❯ kubectl logs -f vault-agent-injector-demo-78d49f7c6-lx88q orgchart
+❯ kubectl -n vault logs -f vault-agent-injector-demo-78d49f7c6-lx88q orgchart
 Listening on port 8000...
 ```
 
