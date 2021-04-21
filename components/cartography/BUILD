@@ -24,6 +24,11 @@ k8s_config(
 # ==============================================================================
 # Deploy Neo4J
 # ==============================================================================
+sh_binary(
+    name = "deploy-neo4j",
+    main = "setup/neo4j.sh",
+)
+
 k8s_config(
     name = "neo4j",
     srcs = [
@@ -36,17 +41,19 @@ k8s_config(
     ],
 )
 
-sh_binary(
-    name = "deploy-neo4j",
-    main = "setup/neo4j.sh",
-)
-
 # ==============================================================================
-# Deploy Cartogaphy
+# Deploy Cartography
 # ==============================================================================
 sh_binary(
     name = "deploy-cartography",
     main = "setup/cartography.sh",
+)
+
+k8s_config(
+    name = "cartography",
+    srcs = [
+    containers = [
+    ],
 )
 
 # ==============================================================================
