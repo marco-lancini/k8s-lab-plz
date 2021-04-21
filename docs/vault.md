@@ -23,7 +23,14 @@ vault-helm-agent-injector-5d7c4965d7-7dnp9   1/1     Running   0          2m3s
 the data folder on the host (and to remove the same folder to reset the installation):
 ```bash
 ❯ sudo mkdir -p /etc/plz-k8s-lab/vault/data/
-❯ sudo sudo chmod -R a+rw /etc/plz-k8s-lab/vault/
+❯ sudo chmod -R a+rw /etc/plz-k8s-lab/vault/
+```
+
+
+### Subsequent Unseals
+If, for any reason, Vault goes into a sealed state, it can be unsealed with the following command:
+```bash
+❯ plz run //components/vault:vault-unseal [minikube|baremetal]
 ```
 
 
