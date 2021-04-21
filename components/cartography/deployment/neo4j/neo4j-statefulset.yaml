@@ -28,6 +28,7 @@ spec:
           {{ with secret "secret/data/cartography/neo4j-password" -}}
             export NEO4J_SECRETS_PASSWORD="{{ .Data.data.NEO4J_SECRETS_PASSWORD }}"
           {{- end }}
+        ## END OF NEO4J PASSWORD SETUP
     spec:
       serviceAccountName: vault-agent
       securityContext:
@@ -45,54 +46,65 @@ spec:
               value: '1'
             - name: AUTH_ENABLED
               value: 'true'
-            # TODO
             - name: NEO_HOSTNAME
-              value: 'neo4j-bolt-service.cartography.svc.cluster.local'
+              value: 'neo4j.192.168.1.151.nip.io'
+            - name: SSL_FOLDER
+              value: '/var/lib/neo4j/ssl'
           command:
             - '/bin/bash'
             - '-c'
             - |
-              # Populate env vars from secrets --> NEO4J_SECRETS_PASSWORD
+              # Populate env vars from secrets
+              #   - NEO4J_SECRETS_PASSWORD
               $(cat /vault/secrets/neo4j-password)
 
-              mkdir -p /data/ssl/client_policy/trusted
-              mkdir -p /data/ssl/client_policy/revoked
-              mkdir -p /data/certs/
+              # Setup folders
+              mkdir -p ${SSL_FOLDER}/client_policy/trusted
+              mkdir -p ${SSL_FOLDER}/client_policy/revoked
+              chmod -R a+rw ${SSL_FOLDER}
 
               # Setup Neo4j config
               #   - Prefix with NEO4J_.
               #   - Underscores must be written twice: _ is written as __.
               #   - Periods are converted to underscores: . is written as _.
               #
+              # TODO: re-enable password auth
+              #
+              # export NEO4J_dbms_security_auth__enabled=true
+              # export NEO4J_AUTH="neo4j/${NEO4J_SECRETS_PASSWORD}"
+
+              #
               # Global Configs
               #
-              export NEO4J_AUTH="neo4j/${NEO4J_SECRETS_PASSWORD}"
               export NEO4J_dbms_connector_bolt_listen__address=0.0.0.0:7687
               export NEO4J_dbms_connectors_default__advertised__address=${NEO_HOSTNAME}
-
 
               #
               # Setup SSL - Folders
               #
-              # export NEO4J_dbms_ssl_policy_client__policy_base__directory=/data/ssl/client_policy
-              # export NEO4J_dbms_ssl_policy_client__policy_trusted__dir=/data/ssl/client_policy/trusted
-              # export NEO4J_dbms_ssl_policy_client__policy_revoked__dir=/data/ssl/client_policy/revoked
+              export NEO4J_dbms_ssl_policy_client__policy_base__directory=${SSL_FOLDER}/client_policy
+              export NEO4J_dbms_ssl_policy_client__policy_trusted__dir=${SSL_FOLDER}/client_policy/trusted
+              export NEO4J_dbms_ssl_policy_client__policy_revoked__dir=${SSL_FOLDER}/client_policy/revoked
+
               #
               # Setup SSL - Certificates
               #
-              # export NEO4J_dbms_ssl_policy_client__policy_private__key=/data/certs/server_key.pem
-              # export NEO4J_dbms_ssl_policy_client__policy_public__certificate=/data/certs/server_chain.pem
-              # cp /data/certs/server_chain.pem /data/ssl/client_policy/trusted/
+              export NEO4J_dbms_ssl_policy_client__policy_private__key=/etc/certs/server_key.pem
+              export NEO4J_dbms_ssl_policy_client__policy_public__certificate=/etc/certs/server_chain.pem
+              cp /etc/certs/server_chain.pem ${SSL_FOLDER}/client_policy/trusted/
+
               #
               # Setup SSL - Enable policy
               #
-              # export NEO4J_https_ssl__policy=client_policy
-              # export NEO4J_bolt_ssl__policy=client_policy
-              # export NEO4J_dbms_ssl_policy_client__policy_client__auth=NONE
-              # export NEO4J_dbms_connector_bolt_tls__level=OPTIONAL
+              export NEO4J_https_ssl__policy=client_policy
+              export NEO4J_bolt_ssl__policy=client_policy
+              export NEO4J_dbms_ssl_policy_client__policy_client__auth=NONE
+              export NEO4J_dbms_connector_bolt_tls__level=OPTIONAL
+
               #
               # Run Neo4j
               #
+              echo "Starting Neo4j...."
               exec /docker-entrypoint.sh "neo4j"
           ports:
             - name: discovery
@@ -117,34 +129,18 @@ spec:
           volumeMounts:
             - name: datadir
               mountPath: '/data'
-            # - name: plugins
-            #   mountPath: /plugins
-            # - name: neo4j-certs-volume
-            #   mountPath: /etc/certs/
-            #   readOnly: true
-            # - name: folder-ssl
-            #   mountPath: /data/ssl/client_policy
-            # - name: folder-ssl-trusted
-            #   mountPath: /data/ssl/client_policy/trusted
-            # - name: folder-ssl-revoked
-            #   mountPath: /data/ssl/client_policy/revoked
+            - name: neo4j-certs-volume
+              mountPath: /etc/certs/
+              readOnly: true
       volumes:
-        # - name: plugins
-        #   emptyDir: {}
-        # - name: neo4j-certs-volume
-        #   secret:
-        #     secretName: neo4j-bolt-tls
-        #     items:
-        #       - key: tls.key
-        #         path: server_key.pem
-        #       - key: tls.crt
-        #         path: server_chain.pem
-        # - name: folder-ssl
-        #   emptyDir: {}
-        # - name: folder-ssl-trusted
-        #   emptyDir: {}
-        # - name: folder-ssl-revoked
-        #   emptyDir: {}
+        - name: neo4j-certs-volume
+          secret:
+            secretName: neo4j-bolt-tls
+            items:
+              - key: tls.key
+                path: server_key.pem
+              - key: tls.crt
+                path: server_chain.pem
   volumeClaimTemplates:
     - metadata:
         name: datadir
