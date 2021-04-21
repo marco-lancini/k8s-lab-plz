@@ -22,9 +22,40 @@ k8s_config(
 )
 
 # ==============================================================================
+# Deploy Neo4J
+# ==============================================================================
+k8s_config(
+    name = "neo4j",
+    srcs = [
+        # "deployment/neo4j/neo4j-certificate.yaml",
+        "deployment/neo4j/neo4j-service.yaml",
+        "deployment/neo4j/neo4j-statefulset.yaml",
+    ],
+    containers = [
+        "//third_party/docker:neo4j",
+    ],
+)
+
+sh_binary(
+    name = "deploy-neo4j",
+    main = "setup/neo4j.sh",
+)
+
+# ==============================================================================
+# Deploy Cartogaphy
+# ==============================================================================
+sh_binary(
+    name = "deploy-cartography",
+    main = "setup/cartography.sh",
+)
+
+# ==============================================================================
 # BAREMETAL
 # ==============================================================================
 k8s_config(
-    name = "neo4j-baremetal-pv",
-    srcs = ["baremetal/neo4j-pv.yaml"],
+    name = "neo4j-baremetal",
+    srcs = [
+        "baremetal/neo4j-pv.yaml",
+        "baremetal/neo4j-ingress.yaml"
+    ],
 )
