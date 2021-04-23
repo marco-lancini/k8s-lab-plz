@@ -36,3 +36,9 @@ spec:
                 - "/bin/sh"
                 - "-c"
                 - |
+                - name: aws-accounts-configmap-volume
+                  mountPath: /opt/aws-config
+                  readOnly: true
+            - name: aws-accounts-configmap-volume
+              configMap:
+                name: aws-accounts-configmap
