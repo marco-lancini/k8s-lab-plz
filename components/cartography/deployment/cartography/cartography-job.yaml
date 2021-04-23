@@ -1,0 +1,35 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cartography-run
+  labels:
+    app: cartography
+    component: cartography
+spec:
+  schedule: "0 7 * * *" # Run every day at 7am
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      template:
+        metadata:
+          labels:
+            app: cartography
+            component: cartography
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 27100
+            runAsGroup: 27100
+          containers:
+            - name: cartography-run
+              securityContext:
+                allowPrivilegeEscalation: false
+                - name: NEO4J_USER
+                  value: "neo4j"
+              command:
+                - "/bin/sh"
+                - "-c"
+                - |
