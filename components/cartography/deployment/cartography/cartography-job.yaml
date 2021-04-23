@@ -7,7 +7,7 @@ metadata:
     app: cartography
     component: cartography
 spec:
-  schedule: "0 7 * * *" # Run every day at 7am
+  schedule: '0 7 * * *' # Run every day at 7am
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
@@ -25,22 +25,23 @@ spec:
             runAsGroup: 27100
           containers:
             - name: cartography-run
+              image: //components/cartography:cartography_docker
               securityContext:
                 allowPrivilegeEscalation: false
               env:
                 - name: NEO4J_URI
-                  value: "bolt://neo4j-bolt-service:7687"
+                  value: 'bolt://neo4j-bolt-service:7687'
                 - name: NEO4J_USER
-                  value: "neo4j"
+                  value: 'neo4j'
                 - name: AWS_DEFAULT_REGION
-                  value: "eu-west-1"
+                  value: 'eu-west-1'
                 - name: AWS_DEFAULT_OUTPUT
-                  value: "json"
+                  value: 'json'
                 - name: AWS_DEFAULT_PROFILE
-                  value: "default"
+                  value: 'default'
               command:
-                - "/bin/sh"
-                - "-c"
+                - '/bin/sh'
+                - '-c'
                 - |
                 - name: aws-accounts-configmap-volume
                   mountPath: /opt/aws-config
