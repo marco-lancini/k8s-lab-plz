@@ -26,7 +26,7 @@ spec:
         vault.hashicorp.com/agent-inject-secret-neo4j-password: 'secret/data/cartography/neo4j-password'
         vault.hashicorp.com/agent-inject-template-neo4j-password: |
           {{ with secret "secret/data/cartography/neo4j-password" -}}
-            export NEO4J_SECRETS_PASSWORD="{{ .Data.data.NEO4J_SECRETS_PASSWORD }}"
+            NEO4J_SECRETS_PASSWORD="{{ .Data.data.NEO4J_SECRETS_PASSWORD }}"
           {{- end }}
         ## END OF NEO4J PASSWORD SETUP
     spec:
@@ -47,7 +47,7 @@ spec:
             - name: AUTH_ENABLED
               value: 'true'
             - name: NEO_HOSTNAME
-              value: 'neo4j.192.168.1.151.nip.io'
+              value: 'neo4j-bolt-service'
             - name: SSL_FOLDER
               value: '/var/lib/neo4j/ssl'
           command:
@@ -56,7 +56,7 @@ spec:
             - |
               # Populate env vars from secrets
               #   - NEO4J_SECRETS_PASSWORD
-              $(cat /vault/secrets/neo4j-password)
+              export $(grep -v '#.*' /vault/secrets/neo4j-password | xargs)
 
               # Setup folders
               mkdir -p ${SSL_FOLDER}/client_policy/trusted
