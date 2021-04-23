@@ -27,6 +27,9 @@ spec:
             - name: cartography-run
               securityContext:
                 allowPrivilegeEscalation: false
+              env:
+                - name: NEO4J_URI
+                  value: "bolt://neo4j-bolt-service:7687"
                 - name: NEO4J_USER
                   value: "neo4j"
               command:
