@@ -32,6 +32,12 @@ spec:
                   value: "bolt://neo4j-bolt-service:7687"
                 - name: NEO4J_USER
                   value: "neo4j"
+                - name: AWS_DEFAULT_REGION
+                  value: "eu-west-1"
+                - name: AWS_DEFAULT_OUTPUT
+                  value: "json"
+                - name: AWS_DEFAULT_PROFILE
+                  value: "default"
               command:
                 - "/bin/sh"
                 - "-c"
