@@ -20,7 +20,6 @@ kubectl -n ${VAULT_NAMESPACE} exec ${VAULT_POD_NAME} -it -- vault kv put -cas=0 
 #   - Generate TLS Certificates and Ingress (baremetal only)
 #   - Create StorageClass and PersistentVolume (baremetal only)
 #   - Deploy the Neo4j StatefulSet, Service, and Ingress
-printf "\n[+] Deploying Neo4j...\n"
 if [[ $TARGET == "baremetal" ]]
 then
     # TLS Certificates
