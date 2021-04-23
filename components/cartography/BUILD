@@ -49,6 +49,17 @@ sh_binary(
     main = "setup/cartography.sh",
 )
 
+k8s_config(
+    name = "cartography",
+    srcs = [
+        "deployment/cartography/aws-accounts-configmap.yaml",
+        "deployment/cartography/cartography-job.yaml",
+    ],
+    containers = [
+        ":cartography_docker",
+    ],
+)
+
 docker_image(
     name = "cartography_docker",
     srcs = [
