@@ -49,11 +49,15 @@ sh_binary(
     main = "setup/cartography.sh",
 )
 
-k8s_config(
-    name = "cartography",
+docker_image(
+    name = "cartography_docker",
     srcs = [
-    containers = [
+        "deployment/cartography/docker-entrypoint.sh",
     ],
+    dockerfile = "deployment/cartography/Dockerfile-cartography",
+    image = "cartography",
+    repo = "hub.docker.com",
+    visibility = ["//components/cartography/..."],
 )
 
 # ==============================================================================
