@@ -62,9 +62,6 @@ k8s_config(
 
 docker_image(
     name = "cartography_docker",
-    srcs = [
-        "deployment/cartography/docker-entrypoint.sh",
-    ],
     dockerfile = "deployment/cartography/Dockerfile-cartography",
     image = "cartography",
     version = "1.4",
