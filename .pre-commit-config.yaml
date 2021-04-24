@@ -5,8 +5,6 @@ repos:
     hooks:
       - id: check-yaml
         args: [--allow-multiple-documents]
-      - id: check-json
-        exclude: '^components/vault/'
       - id: detect-aws-credentials
         args: ['--allow-missing-credentials']
       - id: detect-private-key
