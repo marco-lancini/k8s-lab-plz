@@ -1,3 +1,4 @@
 # Ignore MD for docs/
 *.md
 *.markdown
+components/vault/setup/*.json
