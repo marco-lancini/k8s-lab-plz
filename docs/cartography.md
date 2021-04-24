@@ -39,6 +39,11 @@ NAME                  READY   STATUS    RESTARTS   AGE
 neo4j-statefulset-0   2/2     Running   0          5h56m
 ```
 
+Manually trigger the execution of a Cartography Job:
+```bash
+❯ kubectl -n cartography create job --from=cronjob/cartography-run cartography-run
+```
+
 📝 **NOTE FOR BAREMETAL**: before deploying, make sure to prepare
 the data folder on the host (and to remove the same folder to reset the installation):
 ```bash
@@ -54,6 +59,7 @@ the data folder on the host (and to remove the same folder to reset the installa
 
 ### Via Port-Forward
 ### Via Ingress on Baremetal
+* Verify the Ingresses have been deployed:
 ```bash
 ❯ kubectl -n cartography get ingress
 NAME                 CLASS    HOSTS                        ADDRESS   PORTS     AGE
@@ -63,3 +69,12 @@ neo4j-ingress-bolt   <none>   bolt.192.168.1.151.nip.io              80, 443   6
 
 📝 **NOTE**: before deploying, make sure to replace the host IP address in `//components/cartography/baremetal/neo4j-ingress.yaml`.
 This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
+
+* To access the Neo4j web UI:
+  * Browse to: https://neo4j.192.168.1.151.nip.io/browser/
+  * Connect URL: `bolt://bolt.192.168.1.151.nip.io:443`
+  * Username: `neo4j`
+  * Password: stored in Vault at `secret/cartography/neo4j-password`
+
+![](../.github/components/neo4j_ui.png)
+
