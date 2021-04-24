@@ -3,3 +3,9 @@ path "secret/data/*" {
         "read"
     ]
 }
+
+path "aws/sts/*" {
+  capabilities = [
+      "read"
+  ]
+}
