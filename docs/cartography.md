@@ -21,6 +21,28 @@
   * Generates TLS Certificates and Ingress (baremetal only)
   * Created a StorageClass and PersistentVolume (baremetal only)
   * Deploys the Neo4j StatefulSet and Service
+* Setup and Deploy Cartography:
+  * Creates a custom Docker image for Cartography
+  * Requests user to provide access key, secret key, and Account ID of the Hub
+  * Setup Vault:
+    * Enables the AWS secrets engine
+    * Persists the credentials that Vault will use to communicate with AWS
+    * Configures a Vault role that maps to a set of permissions in AWS
+  * Deploys the Cartography CronJob, scheduled to run every day at 7am
+
+Verify pods are healthy:
+```bash
+❯ kubectl -n cartography get po
+NAME                  READY   STATUS    RESTARTS   AGE
+neo4j-statefulset-0   2/2     Running   0          5h56m
+```
+
+📝 **NOTE FOR BAREMETAL**: before deploying, make sure to prepare
+the data folder on the host (and to remove the same folder to reset the installation):
+```bash
+❯ sudo mkdir -p /etc/plz-k8s-lab/cartography/neo4j/
+❯ sudo chmod -R a+rw /etc/plz-k8s-lab/cartography/
+```
 
 
 * Generates a random password for Neo4j and stores it into Vault
