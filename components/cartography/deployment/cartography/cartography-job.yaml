@@ -3,6 +3,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: cartography-run
+  namespace: cartography
   labels:
     app: cartography
     component: cartography
@@ -17,7 +18,27 @@ spec:
           labels:
             app: cartography
             component: cartography
+          annotations:
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/role: 'vault-agent'
+            #
+            # AWS CREDENTIALS FROM VAULT
+            #
+            # ID
+            vault.hashicorp.com/agent-inject-secret-aws-security-reviewer-id: 'secret/data/cartography/aws-security-reviewer/aws_access_key_id'
+            vault.hashicorp.com/agent-inject-template-aws-security-reviewer-id: |
+              {{ with secret "secret/data/cartography/aws-security-reviewer" -}}
+                aws_access_key_id="{{ .Data.data.aws_access_key_id }}"
+              {{- end }}
+            # KEY
+            vault.hashicorp.com/agent-inject-secret-aws-security-reviewer-key: 'secret/data/cartography/aws-security-reviewer/aws_secret_access_key'
+            vault.hashicorp.com/agent-inject-template-aws-security-reviewer-key: |
+              {{ with secret "secret/data/cartography/aws-security-reviewer" -}}
+                aws_secret_access_key="{{ .Data.data.aws_secret_access_key }}"
+              {{- end }}
+            ## END OF CREDENTIALS SETUP
         spec:
+          serviceAccountName: vault-agent
           restartPolicy: Never
           securityContext:
             runAsNonRoot: true
