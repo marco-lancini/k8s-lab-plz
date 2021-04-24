@@ -122,10 +122,10 @@ spec:
           resources:
             requests:
               memory: 512Mi
-              cpu: 500m
+              cpu: 100m
             limits:
               memory: 1Gi
-              cpu: 800m
+              cpu: 200m
           volumeMounts:
             - name: datadir
               mountPath: '/data'
