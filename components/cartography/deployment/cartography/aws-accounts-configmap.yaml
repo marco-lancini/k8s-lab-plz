@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: aws-accounts-configmap
+  namespace: cartography
 data:
   aws-config: |
     # SETUP CONFIG
@@ -15,7 +16,7 @@ data:
 
     # SETUP SPOKE ACCOUNTS
     #   [profile <AccountName>]
-    #   role_arn = arn:aws:iam::<AccountId>:role/tm-security-audit
+    #   role_arn = arn:aws:iam::<AccountId>:role/role_security_audit
     #   region=eu-west-1
     #   output=json
     #   source_profile=default
