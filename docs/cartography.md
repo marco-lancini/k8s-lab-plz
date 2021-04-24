@@ -20,8 +20,8 @@
 * Setup namespace: creates a `cartography` namespace, and a Vault Agent service account
 * Setup and Deploy Neo4j:
   * Generates a random password for Neo4j and stores it into Vault
-  * Generates TLS Certificates and Ingress (baremetal only)
-  * Created a StorageClass and PersistentVolume (baremetal only)
+  * Generates TLS Certificates
+  * Created a StorageClass, PersistentVolume, and Ingress (baremetal only)
   * Deploys the Neo4j StatefulSet and Service
 * Setup and Deploy Cartography:
   * Creates a custom Docker image for Cartography

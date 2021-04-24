@@ -30,15 +30,43 @@ sh_binary(
 )
 
 k8s_config(
-    name = "neo4j",
+    name = "neo4j-service",
     srcs = [
-        # "deployment/neo4j/neo4j-certificate.yaml",
         "deployment/neo4j/neo4j-service.yaml",
+    ],
+)
+
+k8s_config(
+    name = "neo4j-minikube",
+    srcs = [
         "deployment/neo4j/neo4j-statefulset.yaml",
     ],
     containers = [
         "//third_party/docker:neo4j",
     ],
+    deps = [":neo4j-service"]
+)
+
+k8s_config(
+    name = "neo4j-baremetal-deps",
+    srcs = [
+        "deployment/baremetal/neo4j-pv.yaml",
+        "deployment/baremetal/neo4j-ingress.yaml",
+    ],
+)
+
+k8s_config(
+    name = "neo4j-baremetal",
+    srcs = [
+        "deployment/baremetal/neo4j-statefulset.yaml",
+    ],
+    containers = [
+        "//third_party/docker:neo4j",
+    ],
+    deps = [
+        ":neo4j-service",
+        ":neo4j-baremetal-deps"
+    ]
 )
 
 # ==============================================================================
@@ -67,15 +95,4 @@ docker_image(
     version = "1.4",
     repo = "marcolancini",
     visibility = ["//components/cartography/..."],
-)
-
-# ==============================================================================
-# BAREMETAL
-# ==============================================================================
-k8s_config(
-    name = "neo4j-baremetal",
-    srcs = [
-        "baremetal/neo4j-pv.yaml",
-        "baremetal/neo4j-ingress.yaml"
-    ],
 )

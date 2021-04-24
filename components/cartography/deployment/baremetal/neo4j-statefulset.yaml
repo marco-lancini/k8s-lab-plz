@@ -133,8 +133,6 @@ spec:
               mountPath: /etc/certs/
               readOnly: true
       volumes:
-        - name: datadir
-          emptyDir: {}
         - name: neo4j-certs-volume
           secret:
             secretName: neo4j-bolt-tls
@@ -143,3 +141,14 @@ spec:
                 path: server_key.pem
               - key: tls.crt
                 path: server_chain.pem
+  volumeClaimTemplates:
+    - metadata:
+        name: datadir
+        annotations:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: neo4j-storage
+        resources:
+          requests:
+            storage: '1Gi'
