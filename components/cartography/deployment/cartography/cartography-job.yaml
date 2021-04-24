@@ -60,13 +60,24 @@ spec:
                   value: 'json'
                 - name: AWS_DEFAULT_PROFILE
                   value: 'default'
+                # - name: GOOGLE_APPLICATION_CREDENTIALS
+                #   value: /vault/secrets/security-reviewer-sa.json
               command:
                 - '/bin/sh'
                 - '-c'
                 - |
+              volumeMounts:
                 - name: aws-accounts-configmap-volume
                   mountPath: /opt/aws-config
                   readOnly: true
+              resources:
+                requests:
+                  memory: 512Mi
+                  cpu: 100m
+                limits:
+                  memory: 1Gi
+                  cpu: 200m
+          volumes:
             - name: aws-accounts-configmap-volume
               configMap:
                 name: aws-accounts-configmap
