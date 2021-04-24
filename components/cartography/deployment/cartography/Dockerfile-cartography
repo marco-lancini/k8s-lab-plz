@@ -10,9 +10,4 @@ RUN chown -R app:app /src
 # Install dependencies
 RUN pip3 install --upgrade cartography python-dateutil==2.8.0
 
-# Add entrypoint
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-
 USER app
-ENTRYPOINT ["/docker-entrypoint.sh"]

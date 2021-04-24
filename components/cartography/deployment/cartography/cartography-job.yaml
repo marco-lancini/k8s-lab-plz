@@ -22,20 +22,17 @@ spec:
             vault.hashicorp.com/agent-inject: 'true'
             vault.hashicorp.com/role: 'vault-agent'
             #
+            # NEO4J PASSWORD FROM VAULT
+            #
+            vault.hashicorp.com/agent-inject-secret-neo4j-password: 'secret/data/cartography/neo4j-password'
+            vault.hashicorp.com/agent-inject-template-neo4j-password: |
+              {{ with secret "secret/data/cartography/neo4j-password" -}}
+                NEO4J_SECRETS_PASSWORD="{{ .Data.data.NEO4J_SECRETS_PASSWORD }}"
+              {{- end }}
+            #
             # AWS CREDENTIALS FROM VAULT
             #
-            # ID
-            vault.hashicorp.com/agent-inject-secret-aws-security-reviewer-id: 'secret/data/cartography/aws-security-reviewer/aws_access_key_id'
-            vault.hashicorp.com/agent-inject-template-aws-security-reviewer-id: |
-              {{ with secret "secret/data/cartography/aws-security-reviewer" -}}
-                aws_access_key_id="{{ .Data.data.aws_access_key_id }}"
-              {{- end }}
-            # KEY
-            vault.hashicorp.com/agent-inject-secret-aws-security-reviewer-key: 'secret/data/cartography/aws-security-reviewer/aws_secret_access_key'
-            vault.hashicorp.com/agent-inject-template-aws-security-reviewer-key: |
-              {{ with secret "secret/data/cartography/aws-security-reviewer" -}}
-                aws_secret_access_key="{{ .Data.data.aws_secret_access_key }}"
-              {{- end }}
+            vault.hashicorp.com/agent-inject-secret-aws-user.txt: '/aws/sts/cartography'
             ## END OF CREDENTIALS SETUP
         spec:
           serviceAccountName: vault-agent
@@ -66,6 +63,35 @@ spec:
                 - '/bin/sh'
                 - '-c'
                 - |
+                  # Populate env vars from secrets: NEO4J_SECRETS_PASSWORD
+                  export $(grep -v '#.*' /vault/secrets/neo4j-password | xargs)
+
+                  # Setup AWS credentials
+                  mkdir -p ~/.aws/
+
+                  # Retrieve credentials for the security-audit-user
+                  aws_access_key_id=$(grep access_key /vault/secrets/aws-user.txt | awk '{print $2}')
+                  aws_secret_access_key=$(grep secret_key /vault/secrets/aws-user.txt | awk '{print $2}')
+                  aws_session_token=$(grep security_token /vault/secrets/aws-user.txt | awk '{print $2}')
+
+                  #   [default]
+                  #   aws_access_key_id = X
+                  #   aws_secret_access_key = X
+                  #   aws_session_token = x
+                  cat <<EOF >> ~/.aws/credentials
+                  [${AWS_DEFAULT_PROFILE}]
+                  aws_access_key_id=$aws_access_key_id
+                  aws_secret_access_key=$aws_secret_access_key
+                  aws_session_token=$aws_session_token
+                  EOF
+
+                  # Copy the config for the Spoke accounts from the configmap
+                  cp /opt/aws-config/aws-config ~/.aws/config
+
+                  # Run Cartography
+                  cartography --neo4j-uri ${NEO4J_URI} --neo4j-user ${NEO4J_USER} --neo4j-password-env-var NEO4J_SECRETS_PASSWORD --aws-sync-all-profiles
+
+                  echo "Cartography run completed"
               volumeMounts:
                 - name: aws-accounts-configmap-volume
                   mountPath: /opt/aws-config

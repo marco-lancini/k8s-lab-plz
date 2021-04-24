@@ -67,8 +67,8 @@ docker_image(
     ],
     dockerfile = "deployment/cartography/Dockerfile-cartography",
     image = "cartography",
-    version = "1.0",
-    repo = "hub.docker.com",
+    version = "1.4",
+    repo = "marcolancini",
     visibility = ["//components/cartography/..."],
 )
 
