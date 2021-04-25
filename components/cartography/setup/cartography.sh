@@ -38,7 +38,9 @@ kubectl -n ${VAULT_NAMESPACE} exec ${VAULT_POD_NAME} -- vault write aws/config/r
 printf "[+] Configure Vault role...\n"
 kubectl -n ${VAULT_NAMESPACE} exec ${VAULT_POD_NAME} -- vault write aws/roles/cartography \
     role_arns=arn:aws:iam::${HUB_ID}:role/${ROLE_ASSUME} \
-    credential_type=assumed_role
+    credential_type=assumed_role                         \
+    default_sts_ttl=21600                                \
+    max_sts_ttl=21600
 
 #
 # Deploy Cartography:
