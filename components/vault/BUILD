@@ -81,6 +81,11 @@ sh_binary(
     main = "setup/vault-init.sh",
 )
 
+sh_binary(
+    name = "vault-unseal",
+    main = "setup/vault-unseal.sh"
+)
+
 # ==============================================================================
 # Setup sidecar Agent
 # ==============================================================================

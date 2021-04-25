@@ -1,0 +1,109 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cartography-run
+  namespace: cartography
+  labels:
+    app: cartography
+    component: cartography
+spec:
+  schedule: '0 7 * * *' # Run every day at 7am
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      template:
+        metadata:
+          labels:
+            app: cartography
+            component: cartography
+          annotations:
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/role: 'vault-agent'
+            #
+            # NEO4J PASSWORD FROM VAULT
+            #
+            vault.hashicorp.com/agent-inject-secret-neo4j-password: 'secret/data/cartography/neo4j-password'
+            vault.hashicorp.com/agent-inject-template-neo4j-password: |
+              {{ with secret "secret/data/cartography/neo4j-password" -}}
+                NEO4J_SECRETS_PASSWORD="{{ .Data.data.NEO4J_SECRETS_PASSWORD }}"
+              {{- end }}
+            #
+            # AWS CREDENTIALS FROM VAULT
+            #
+            vault.hashicorp.com/agent-inject-secret-aws-user.txt: '/aws/sts/cartography'
+            ## END OF CREDENTIALS SETUP
+        spec:
+          serviceAccountName: vault-agent
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 27100
+            runAsGroup: 27100
+          containers:
+            - name: cartography-run
+              image: //components/cartography:cartography_docker
+              securityContext:
+                allowPrivilegeEscalation: false
+              env:
+                - name: NEO4J_URI
+                  value: 'bolt://neo4j-bolt-service:7687'
+                - name: NEO4J_USER
+                  value: 'neo4j'
+                - name: AWS_DEFAULT_REGION
+                  value: 'eu-west-1'
+                - name: AWS_DEFAULT_OUTPUT
+                  value: 'json'
+                - name: AWS_DEFAULT_PROFILE
+                  value: 'default'
+                # - name: GOOGLE_APPLICATION_CREDENTIALS
+                #   value: /vault/secrets/security-reviewer-sa.json
+              command:
+                - '/bin/sh'
+                - '-c'
+                - |
+                  # Populate env vars from secrets: NEO4J_SECRETS_PASSWORD
+                  export $(grep -v '#.*' /vault/secrets/neo4j-password | xargs)
+
+                  # Setup AWS credentials
+                  mkdir -p ~/.aws/
+
+                  # Retrieve credentials for the security-audit-user
+                  aws_access_key_id=$(grep access_key /vault/secrets/aws-user.txt | awk '{print $2}')
+                  aws_secret_access_key=$(grep secret_key /vault/secrets/aws-user.txt | awk '{print $2}')
+                  aws_session_token=$(grep security_token /vault/secrets/aws-user.txt | awk '{print $2}')
+
+                  #   [default]
+                  #   aws_access_key_id = X
+                  #   aws_secret_access_key = X
+                  #   aws_session_token = x
+                  cat <<EOF >> ~/.aws/credentials
+                  [${AWS_DEFAULT_PROFILE}]
+                  aws_access_key_id=$aws_access_key_id
+                  aws_secret_access_key=$aws_secret_access_key
+                  aws_session_token=$aws_session_token
+                  EOF
+
+                  # Copy the config for the Spoke accounts from the configmap
+                  cp /opt/aws-config/aws-config ~/.aws/config
+
+                  # Run Cartography
+                  cartography --neo4j-uri ${NEO4J_URI} --neo4j-user ${NEO4J_USER} --neo4j-password-env-var NEO4J_SECRETS_PASSWORD --aws-sync-all-profiles
+
+                  echo "Cartography run completed"
+              volumeMounts:
+                - name: aws-accounts-configmap-volume
+                  mountPath: /opt/aws-config
+                  readOnly: true
+              resources:
+                requests:
+                  memory: 512Mi
+                  cpu: 100m
+                limits:
+                  memory: 1Gi
+                  cpu: 200m
+          volumes:
+            - name: aws-accounts-configmap-volume
+              configMap:
+                name: aws-accounts-configmap
