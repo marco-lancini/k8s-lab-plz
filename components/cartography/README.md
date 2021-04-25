@@ -93,6 +93,8 @@ This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](
 
 ## References
 * [cartography](https://github.com/lyft/cartography)
-* [Cross Account Auditing in AWS and GCP](https://www.marcolancini.it/2019/blog-cross-account-auditing/)
+* [Automating Cartography Deployments on Kubernetes](https://www.marcolancini.it/2021/blog-cartography-on-kubernetes/)
 * [Terraform AWS Security Reviewer](https://github.com/marco-lancini/utils/tree/main/terraform/aws-security-reviewer)
+* [Cross Account Auditing in AWS and GCP](https://www.marcolancini.it/2019/blog-cross-account-auditing/)
+* [Mapping Moving Clouds: How to stay on top of your ephemeral environments with Cartography](https://www.marcolancini.it/2020/blog-mapping-moving-clouds-with-cartography/)
 * [Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)
