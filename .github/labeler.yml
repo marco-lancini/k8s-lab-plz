@@ -6,7 +6,7 @@ component:
   - third_party/**/*
 
 documentation:
-  - docs/**/*
+  - components/**/*.md
   - README.md
 
 ci/cd:

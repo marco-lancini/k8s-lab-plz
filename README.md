@@ -8,12 +8,12 @@ Usage for supported components:
 
 | Component                                                | Usage                                              | Namespace                                        |
 | -------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs/baremetal_setup.md](docs/baremetal_setup.md) | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
-| Vault                                                    | [docs/vault.md](docs/vault.md)                     | `vault`                                          |
-| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs/elk.md](docs/elk.md)                         | `elastic-system`                                 |
-| Metrics (Prometheus, Grafana, Alertmanager)              | [docs/prometheus.md](docs/prometheus.md)           | `metrics`                                        |
-| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs/kafka.md](docs/kafka.md)                     | `kafka`                                          |
-| Cartography                                              | [docs/cartography.md](docs/cartography.md)         | `cartography`                                    |
+| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/README.md) | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
+| Vault                                                    | [docs](components/vault/README.md)                     | `vault`                                          |
+| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/README.md)                         | `elastic-system`                                 |
+| Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/README.md)           | `metrics`                                        |
+| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/README.md)                     | `kafka`                                          |
+| Cartography                                              | [docs](components/cartography/README.md)         | `cartography`                                    |
 
 
 ## Prerequisites
