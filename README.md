@@ -8,12 +8,12 @@ Usage for supported components:
 
 | Component                                                | Usage                                              | Namespace                                        |
 | -------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/README.md) | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
-| Vault                                                    | [docs](components/vault/README.md)                     | `vault`                                          |
-| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/README.md)                         | `elastic-system`                                 |
-| Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/README.md)           | `metrics`                                        |
-| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/README.md)                     | `kafka`                                          |
-| Cartography                                              | [docs](components/cartography/README.md)         | `cartography`                                    |
+| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/) | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
+| Vault                                                    | [docs](components/vault/)                     | `vault`                                          |
+| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/)                         | `elastic-system`                                 |
+| Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/)           | `metrics`                                        |
+| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/)                     | `kafka`                                          |
+| Cartography                                              | [docs](components/cartography/)         | `cartography`                                    |
 
 
 ## Prerequisites
