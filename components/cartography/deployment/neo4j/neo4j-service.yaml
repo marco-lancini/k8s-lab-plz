@@ -5,6 +5,7 @@ metadata:
   labels:
     app: cartography
     component: neo4j
+    service: http
   name: neo4j-service
   namespace: cartography
 spec:
@@ -36,6 +37,7 @@ metadata:
   labels:
     app: cartography
     component: neo4j
+    service: bolt
   name: neo4j-bolt-service
   namespace: cartography
 spec:

@@ -16,4 +16,4 @@ SERVICE_NAME=$(plz run //common:get_resource_from_selector ${NAMESPACE} svc ${SE
 VAULT_ROOT_TOKEN=$(cat ${KEY_FILE} | jq -r ".root_token")
 printf "[+] Forwarding Vault UI to http://127.0.0.1:8200\n"
 printf "\t[*] Root Token: ${VAULT_ROOT_TOKEN}\n"
-kubectl -n vault port-forward svc/${SERVICE_NAME} 8200
+kubectl -n ${NAMESPACE} port-forward svc/${SERVICE_NAME} 8200
