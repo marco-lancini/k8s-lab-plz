@@ -58,6 +58,11 @@ the data folder on the host (and to remove the same folder to reset the installa
 ## Access the Neo4J  UI
 
 ### Via Port-Forward
+* Forward the Vault UI to http://127.0.0.1:7474
+```bash
+❯ plz run //components/vault:ui [minikube|baremetal]
+```
+
 ### Via Ingress on Baremetal
 * Verify the Ingresses have been deployed:
 ```bash
@@ -67,7 +72,9 @@ neo4j-ingress        <none>   neo4j.192.168.1.151.nip.io             80, 443   6
 neo4j-ingress-bolt   <none>   bolt.192.168.1.151.nip.io              80, 443   6h7m
 ```
 
-📝 **NOTE**: before deploying, make sure to replace the host IP address in `//components/cartography/baremetal/neo4j-ingress.yaml`.
+* 📝 **NOTE**: before deploying, make sure to replace the host IP address in:
+  *  `//components/cartography/baremetal/neo4j-ingress.yaml`
+  *  `//components/cartography/setup/neo4j.sh`
 This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
 
 * To access the Neo4j web UI:
@@ -78,3 +85,12 @@ This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](
 
 ![](../.github/components/neo4j_ui.png)
 
+
+---
+
+
+## References
+* [cartography](https://github.com/lyft/cartography)
+* [Cross Account Auditing in AWS and GCP](https://www.marcolancini.it/2019/blog-cross-account-auditing/)
+* [Terraform AWS Security Reviewer](https://github.com/marco-lancini/utils/tree/main/terraform/aws-security-reviewer)
+* [Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)
