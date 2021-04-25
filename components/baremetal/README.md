@@ -9,7 +9,7 @@ blog post.
 ## Kubernetes Installation (manual)
 
 1. **Install CoreOS:** manual process, refer to the blog post.
-2. **Install Kubernetes:** copy the set of scripts contained in the [baremetal_setup](baremetal_setup/) folder, and run them directly on Fedora CoreOS:
+2. **Install Kubernetes:** copy the set of scripts contained in the [scripts](scripts/) folder, and run them directly on Fedora CoreOS:
 
 ```bash
 [root@cluster core]$ ./1_crio_install.sh
