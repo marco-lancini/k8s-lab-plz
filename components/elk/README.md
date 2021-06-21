@@ -4,18 +4,19 @@
 ```bash
 ❯ plz run //components/elk:deploy [minikube|baremetal]
 ```
-* Creates `elastic` namespace
+* Creates `elastic-system` namespace
+* Deploys the Elastic Operator
 * Deploys an Elasticsearch cluster
 * Deploys a Kibana instance
 
 Verify pods are healthy:
 ```bash
-❯ kubectl -n elastic get pods
-NAME                      READY   STATUS    RESTARTS   AGE
-es-cluster-0              1/1     Running   0          5m27s
-kibana-7d7cf8b8b4-dnw86   1/1     Running   0          5m27s
+❯ kubectl -n elastic-system get pods
+NAME                         READY   STATUS    RESTARTS   AGE
+elastic-operator-0           1/1     Running   1          106m
+elasticsearch-es-default-0   0/1     Running   1          105m
+kibana-kb-84645887d8-9fcsf   0/1     Running   1          105m
 ```
-
 
 📝 **NOTE FOR BAREMETAL**: before deploying, make sure to prepare
 the data folder on the host (and to remove the same folder to reset the installation):
