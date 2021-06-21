@@ -6,14 +6,14 @@ Each component can be deployed in a repeatable way with one single command.
 
 Usage for supported components:
 
-| Component                                                | Usage                                              | Namespace                                        |
-| -------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------ |
-| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/) | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
-| Vault                                                    | [docs](components/vault/)                     | `vault`                                          |
-| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/)                         | `elastic`                                 |
-| Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/)           | `metrics`                                        |
-| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/)                     | `kafka`                                          |
-| Cartography                                              | [docs](components/cartography/)         | `cartography`                                    |
+| Component                                                | Usage                           | Namespace                                        |
+| -------------------------------------------------------- | ------------------------------- | ------------------------------------------------ |
+| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/)   | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
+| Vault                                                    | [docs](components/vault/)       | `vault`                                          |
+| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/)         | `elastic-system`                                 |
+| Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/)  | `metrics`                                        |
+| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/)       | `kafka`                                          |
+| Cartography                                              | [docs](components/cartography/) | `cartography`                                    |
 
 
 ## Prerequisites

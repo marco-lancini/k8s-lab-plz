@@ -1,6 +1,7 @@
 #! /bin/bash
 
-NAMESPACE="elastic"
+NAMESPACE="elastic-system"
+SELECTOR="control-plane=elastic-operator"
 TARGET=$1
 if [[ $# -lt 1 ]] ; then
     TARGET="minikube"
@@ -9,6 +10,13 @@ fi
 # Create `elastic` namespace
 printf "\n[+] Creating ${NAMESPACE} namespace...\n"
 plz run //components/elk:elk-namespace_push
+
+#
+# Deploying Elastic Operator
+#
+printf "[+] Deploying Elastic Operator...\n"
+plz run //components/elk:eck_push
+plz run //common:wait_pod -- ${NAMESPACE} "Elastic Operator" ${SELECTOR}
 
 #
 # Deploying ELK:

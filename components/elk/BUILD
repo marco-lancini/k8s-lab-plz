@@ -21,6 +21,12 @@ k8s_config(
 # ==============================================================================
 # ECK
 # ==============================================================================
+k8s_config(
+    name = "eck",
+    srcs = ["//third_party:eck-downloader"],
+    visibility = ["//components/elk/..."]
+)
+
 kustomize_prep(
     name = "kustomize-elk",
     srcs = glob(["deployment/**/*.yaml"]),
@@ -28,7 +34,7 @@ kustomize_prep(
 
 kustomize(
     name = "elk-baremetal",
-    namespace = "elastic",
+    namespace = "elastic-system",
     kustomize_path = "deployment/",
     overlay = "baremetal",
     srcs = [":kustomize-elk"],
@@ -36,7 +42,7 @@ kustomize(
 
 kustomize(
     name = "elk-minikube",
-    namespace = "elastic",
+    namespace = "elastic-system",
     kustomize_path = "deployment/",
     overlay = "minikube",
     srcs = [":kustomize-elk"],

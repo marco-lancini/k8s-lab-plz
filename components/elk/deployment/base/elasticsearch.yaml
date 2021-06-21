@@ -1,0 +1,29 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+spec:
+  version: 7.8.0
+  nodeSets:
+    - name: default
+      count: 1
+      config:
+        node.master: true
+        node.data: true
+        node.ingest: true
+        node.store.allow_mmap: false
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              securityContext:
+                # Needed by Elasticsearch for chroot
+                privileged: true
+                runAsUser: 0
+              volumeMounts:
+                - name: elasticsearch-data
+                  mountPath: '/usr/share/elasticsearch/data'
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true

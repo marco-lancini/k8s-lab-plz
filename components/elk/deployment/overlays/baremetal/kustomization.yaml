@@ -9,4 +9,4 @@ resources:
   - kibana-ui-ingress.yaml
 
 patchesStrategicMerge:
-  - elastic-statefulset.yaml
+  - elasticsearch.yaml
