@@ -5,4 +5,4 @@ bases:
   - ../../base
 
 patchesStrategicMerge:
-  - elastic-statefulset.yaml
+  - elasticsearch.yaml
