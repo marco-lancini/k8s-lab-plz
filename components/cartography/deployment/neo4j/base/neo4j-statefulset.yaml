@@ -3,22 +3,11 @@ apiVersion: 'apps/v1'
 kind: StatefulSet
 metadata:
   name: neo4j-statefulset
-  namespace: cartography
-  labels:
-    app: cartography
-    component: neo4j
 spec:
   serviceName: neo4j-statefulset
   replicas: 1
-  selector:
-    matchLabels:
-      app: cartography
-      component: neo4j
   template:
     metadata:
-      labels:
-        app: cartography
-        component: neo4j
       annotations:
         vault.hashicorp.com/agent-inject: 'true'
         vault.hashicorp.com/role: 'vault-agent'
@@ -31,9 +20,6 @@ spec:
         ## END OF NEO4J PASSWORD SETUP
     spec:
       serviceAccountName: vault-agent
-      securityContext:
-        runAsUser: 27100
-        runAsGroup: 27100
       containers:
         - name: neo4j-statefulset
           image: //third_party/docker:neo4j
@@ -133,8 +119,6 @@ spec:
               mountPath: /etc/certs/
               readOnly: true
       volumes:
-        - name: datadir
-          emptyDir: {}
         - name: neo4j-certs-volume
           secret:
             secretName: neo4j-bolt-tls

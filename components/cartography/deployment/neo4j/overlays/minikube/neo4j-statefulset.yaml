@@ -1,0 +1,11 @@
+---
+apiVersion: 'apps/v1'
+kind: StatefulSet
+metadata:
+  name: neo4j-statefulset
+spec:
+  template:
+    spec:
+      volumes:
+        - name: datadir
+          emptyDir: {}

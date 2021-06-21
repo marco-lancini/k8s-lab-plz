@@ -1,0 +1,17 @@
+---
+apiVersion: 'apps/v1'
+kind: StatefulSet
+metadata:
+  name: neo4j-statefulset
+spec:
+  volumeClaimTemplates:
+    - metadata:
+        name: datadir
+        annotations:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: neo4j-storage
+        resources:
+          requests:
+            storage: '1Gi'
