@@ -1,19 +1,12 @@
-
-def k8s_config_namespaced(name:str, srcs:list, namespace:str, containers:list=[], params:dict=None, visibility:list=None, labels:list=[], vendorised:bool=False, deps:list=[]):
-    """Extends https://raw.githubusercontent.com/thought-machine/pleasings/master/k8s/k8s.build_defs to add support for namespaced resources
-    """
-    containers = [c for c in containers if c]
-
+def kustomize_prep(name:str, srcs:list, containers:list=[], params:dict=None, visibility:list=None, labels:list=[], deps:list=[]):
     # Make sure to canonicalise each container (they could be in the form of ':local_container').
+    containers = [c for c in containers if c]
     containers = [canonicalise(container) for container in containers]
 
     # This will template image tags into k8s resource files that reference docker images by build target.
     fqns = [f'{c}_fqn' for c in containers]
     # Tag with appropriate labels
     labels += ['k8s'] + ['container:' + c for c in containers]
-
-    # Template each config YAML and collect them in the filegroup.
-    rules = []
 
     # Now that we have a collection of files, each containing a container name + label, we can
     # create a multi-expression sed command to replace a build target with the actual containers.
@@ -39,17 +32,19 @@ def k8s_config_namespaced(name:str, srcs:list, namespace:str, containers:list=[]
         ])
         replacement_command = f'sed {subcommands}'
 
+    # Template each config YAML and collect them in the filegroup.
+    rules = []
     for src in srcs:
+        # For src_genrule_name
         cleaned_src = src.replace('/', '_').replace(':', '_')
         src_tag = cleaned_src.replace('.', '_')
         src_genrule_name = f'_{name}#{src_tag}'
-        if cleaned_src.endswith('_yaml'):
-            cleaned_src = cleaned_src[:-5] + '.yaml'
+
         rules.append(f':{src_genrule_name}')
         genrule(
             name = src_genrule_name,
             srcs = [src],
-            outs = ['templated_' + cleaned_src],
+            outs = [src],
             cmd = exports + [f"cat $SRCS | {replacement_command} | envsubst '{envsubst_vars}' > $OUT"],
             deps = fqns + [check_rule if check_rule else None],
         )
@@ -61,19 +56,35 @@ def k8s_config_namespaced(name:str, srcs:list, namespace:str, containers:list=[]
         labels = labels,
     )
 
+    return files
+
+
+def kustomize(name:str, srcs:list, namespace:str, overlay:str, kustomize_path:str, visibility:list=None, labels:list=[], deps:list=[]):
+    # Generate a rule to build with kustomize
+    package_name = package_name()
+    genrule(
+        name = f"{name}_build",
+        cmd =  [
+            f'kustomize build {package_name}/{kustomize_path}/overlays/{overlay} > $OUT'
+        ],
+        srcs = srcs,
+        outs = [f'{name}_{overlay}.yaml'],
+        deps = deps,
+        binary = True
+    )
+
     # Generate a rule to push the configs.
     sh_cmd(
         name = name + '_push',
-        cmd = ' && '.join([f'kubectl apply -n {namespace} -f $(out_location {x})' for x in rules]),
-        deps = rules,
-        labels = ["k8s-push"],
+        cmd = [f'kubectl apply -n {namespace} -f plz-out/bin/$(location :{name}_build)'],
+        deps = [f":{name}_build"],
+        labels = ["kustomize-push"],
     )
 
     # Generate a rule to cleanup the configs.
     sh_cmd(
         name = name + '_cleanup',
-        cmd = ' && '.join([f'kubectl delete --ignore-not-found -f $(out_location {x})' for x in rules]),
-        deps = rules,
-        labels = ["k8s-cleanup"],
+        cmd = [f'kubectl delete -n {namespace} -f plz-out/bin/$(location :{name}_build)'],
+        deps = [f":{name}_build"],
+        labels = ["kustomize-cleanup"],
     )
-    return files
