@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kibana-deployment
+  name: kibana
   labels:
     app: kibana
 spec:
@@ -19,6 +19,6 @@ spec:
           image: docker.elastic.co/kibana/kibana:7.2.0
           env:
             - name: ELASTICSEARCH_URL
-              value: http://elasticsearch-service:9200
+              value: http://elasticsearch:9200
           ports:
             - containerPort: 5601
