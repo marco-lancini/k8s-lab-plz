@@ -46,5 +46,10 @@ kubectl -n ${VAULT_NAMESPACE} exec ${VAULT_POD_NAME} -- vault write aws/roles/ca
 # Deploy Cartography:
 #   - Deploy the Cartography CronJob
 #
-printf "\n[+] Deploying Cartography...\n"
-plz run //components/cartography:cartography_push
+printf "\n[+] Deploying Cartography on ${TARGET}...\n"
+if [[ $TARGET == "baremetal" ]]
+then
+    plz run //components/cartography:cartography-baremetal_push
+else
+    plz run //components/cartography:cartography-minikube_push
+fi

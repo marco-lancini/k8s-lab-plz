@@ -24,3 +24,8 @@ filegroup(
     name = "k8s_namespaced",
     srcs = ["k8s_namespaced.build_defs"],
 )
+
+filegroup(
+    name = "kustomize",
+    srcs = ["kustomize.build_defs"]
+)

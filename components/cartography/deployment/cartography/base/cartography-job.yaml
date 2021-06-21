@@ -3,10 +3,6 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: cartography-run
-  namespace: cartography
-  labels:
-    app: cartography
-    component: cartography
 spec:
   schedule: '0 7 * * *' # Run every day at 7am
   concurrencyPolicy: Forbid
@@ -15,9 +11,6 @@ spec:
       backoffLimit: 5
       template:
         metadata:
-          labels:
-            app: cartography
-            component: cartography
           annotations:
             vault.hashicorp.com/agent-inject: 'true'
             vault.hashicorp.com/role: 'vault-agent'
@@ -37,10 +30,6 @@ spec:
         spec:
           serviceAccountName: vault-agent
           restartPolicy: Never
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 27100
-            runAsGroup: 27100
           containers:
             - name: cartography-run
               image: //components/cartography:cartography_docker
@@ -96,13 +85,6 @@ spec:
                 - name: aws-accounts-configmap-volume
                   mountPath: /opt/aws-config
                   readOnly: true
-              resources:
-                requests:
-                  memory: 512Mi
-                  cpu: 100m
-                limits:
-                  memory: 1Gi
-                  cpu: 200m
           volumes:
             - name: aws-accounts-configmap-volume
               configMap:

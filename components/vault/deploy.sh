@@ -7,19 +7,23 @@ if [[ $# -lt 1 ]] ; then
     TARGET="minikube"
 fi
 
-# Deploy Vault:
-#   - Create `vault` namespace
-#   - Create StorageClass and PersistentVolume (baremetal only)
-#   - Fetch and deploy the Vault Helm chart
-printf "\n[+] Deploying Vault on ${TARGET}...\n"
+# Create `vault` namespace
+printf "\n[+] Creating ${NAMESPACE} namespace...\n"
 plz run //components/vault:vault-namespace_push
 
+# Deploy Vault
+printf "\n[+] Deploying Vault on ${TARGET}...\n"
 if [[ $TARGET == "baremetal" ]]
 then
-    plz run //components/vault:vault-baremetal-pv_push
+    # Create StorageClass and PersistentVolume (baremetal only)
+    # Create Ingress
+    plz run //components/vault:vault-baremetal-components_push
+
+    # Fetch and deploy the Vault Helm chart
     plz run //components/vault:vault-baremetal-helm_push
 else
-    plz run //components/vault:vault-helm_push
+    # Fetch and deploy the Vault Helm chart
+    plz run //components/vault:vault-minikube-helm_push
 fi
 plz run //common:wait_pod -- ${NAMESPACE} "Vault Operator" ${SELECTOR}
 

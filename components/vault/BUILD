@@ -1,6 +1,7 @@
 subinclude("//build_defs:docker")
 subinclude("//build_defs:helm_chart")
 subinclude("//build_defs:k8s")
+subinclude("//build_defs:kustomize")
 
 sh_binary(
     name = "deploy",
@@ -12,53 +13,41 @@ sh_binary(
     main = "forward-ui.sh",
 )
 
-# ==============================================================================
-# Deploy Vault - MINIKUBE
-# ==============================================================================
 k8s_config(
     name = "vault-namespace",
     srcs = ["deployment/vault-namespace.yaml"],
 )
 
-filegroup(
-    name = "vault-helm-values",
-    srcs = [
-        "deployment/vault-helm-values.yaml",
-    ],
+# ==============================================================================
+# Deploy Vault
+# ==============================================================================
+kustomize_prep(
+    name = "kustomize-vault",
+    srcs = glob(["deployment/**/*.yaml"]),
 )
 
-helm_chart(
-    name = "vault-helm",
-    src = "//third_party:helm-vault-tar",
-    install_path = "vault-helm-0.6.0/",
+#
+# BAREMETAL
+#
+kustomize(
+    name = "vault-baremetal-components",
     namespace = "vault",
-    visibility = ["//components/vault/..."],
-    values_file = ":vault-helm-values",
-    deps = [
-        ":vault-namespace",
-        ":vault-helm-values"
-    ]
-)
-
-# ==============================================================================
-# Deploy Vault - BAREMETAL
-# ==============================================================================
-k8s_config(
-    name = "vault-baremetal-pv",
-    srcs = ["baremetal/vault-pv.yaml"],
+    kustomize_path = "deployment",
+    overlay = "baremetal",
+    srcs = [":kustomize-vault"],
 )
 
 filegroup(
     name = "vault-baremetal-helm-values",
     srcs = [
-        "baremetal/vault-helm-values.yaml",
+        "deployment/overlays/baremetal/helm-values.yaml",
     ],
 )
 
 helm_chart(
     name = "vault-baremetal-helm",
     src = "//third_party:helm-vault-tar",
-    install_path = "vault-helm-0.6.0/",
+    install_path = "vault-helm-0.13.0/",
     namespace = "vault",
     visibility = ["//components/vault/..."],
     values_file = ":vault-baremetal-helm-values",
@@ -68,9 +57,27 @@ helm_chart(
     ]
 )
 
-k8s_config(
-    name = "vault-baremetal-ingress",
-    srcs = ["baremetal/vault-ui-ingress.yaml"],
+#
+# MINIKUBE
+#
+filegroup(
+    name = "vault-minikube-helm-values",
+    srcs = [
+        "deployment/overlays/minikube/helm-values.yaml",
+    ],
+)
+
+helm_chart(
+    name = "vault-minikube-helm",
+    src = "//third_party:helm-vault-tar",
+    install_path = "vault-helm-0.13.0/",
+    namespace = "vault",
+    visibility = ["//components/vault/..."],
+    values_file = ":vault-minikube-helm-values",
+    deps = [
+        ":vault-namespace",
+        ":vault-minikube-helm-values"
+    ]
 )
 
 # ==============================================================================

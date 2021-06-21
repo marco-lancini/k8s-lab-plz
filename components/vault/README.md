@@ -49,15 +49,13 @@ If, for any reason, Vault goes into a sealed state, it can be unsealed with the 
 
 ### Via Ingress on Baremetal
 ```bash
-❯ plz run //components/vault:vault-baremetal-ingress_push
-
 ❯ kubectl -n vault get ingress
 NAME            CLASS    HOSTS                        ADDRESS   PORTS   AGE
 vault-ingress   <none>   vault.192.168.1.151.nip.io             80      49s
 ```
 
 📝 **NOTE**: before deploying, make sure to replace the host IP address in
-`components/vault/baremetal/vault-ui-ingress.yaml`.
+`components/vault/deployment/overlays/baremetal/vault-ui-ingress.yaml`.
 
 This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
 

@@ -8,12 +8,9 @@ if [[ $# -lt 1 ]] ; then
     TARGET="minikube"
 fi
 
-# Setup namespace:
-#   - Create `cartography` namespace
-#   - Create Vault Agent service account
-printf "\n[+] Deploying Cartography on ${TARGET}...\n"
+# Create `cartography` namespace
+printf "\n[+] Creating ${NAMESPACE} namespace...\n"
 plz run //components/cartography:cartography-namespace_push
-plz run //components/cartography:vault-agent-service-account_push
 
 # Setup and Deploy Neo4j
 plz run //components/cartography:deploy-neo4j ${NAMESPACE} ${TARGET} ${SELECTOR_NEO4J}
