@@ -31,15 +31,15 @@ prometheus-helm-prometheus-operator-d5c9f5675-dh5kd      2/2     Running     0  
 ```
 * Forwards the Prometheus Service to http://127.0.0.1:9090
 
-![](../.github/components/prometheus_ui.png)
+![](../../.github/components/prometheus_ui.png)
 
 * Forwards the Grafana UI to http://127.0.0.1:9191
 
-![](../.github/components/grafana_ui.png)
+![](../../.github/components/grafana_ui.png)
 
 * Forwards the Alertmanager Service to http://127.0.0.1:9093
 
-![](../.github/components/alertmanager_ui.png)
+![](../../.github/components/alertmanager_ui.png)
 
 
 ## References
