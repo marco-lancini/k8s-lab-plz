@@ -1,6 +1,7 @@
 subinclude("//build_defs:docker")
 subinclude("//build_defs:helm_chart")
 subinclude("//build_defs:k8s")
+subinclude("//build_defs:kustomize")
 
 sh_binary(
     name = "deploy",
@@ -12,27 +13,31 @@ sh_binary(
     main = "forward-ui.sh",
 )
 
+k8s_config(
+    name = "elk-namespace",
+    srcs = ["deployment/elk-namespace.yaml"],
+)
+
 # ==============================================================================
 # ECK
 # ==============================================================================
-k8s_config(
-    name = "eck",
-    srcs = ["//third_party:eck-downloader"],
-    visibility = ["//components/elk/..."]
+kustomize_prep(
+    name = "kustomize-elk",
+    srcs = glob(["deployment/**/*.yaml"]),
 )
 
-k8s_config(
-    name = "elasticsearch",
-    srcs = ["k8s/elasticsearch.yaml"],
+kustomize(
+    name = "elk-baremetal",
+    namespace = "elastic",
+    kustomize_path = "deployment/",
+    overlay = "baremetal",
+    srcs = [":kustomize-elk"],
 )
 
-k8s_config(
-    name = "kibana",
-    srcs = ["k8s/kibana.yaml"],
-)
-
-k8s_config(
-    name = "filebeats",
-    srcs = ["k8s/filebeats.yaml"],
-    visibility = ["//components/elk/..."]
+kustomize(
+    name = "elk-minikube",
+    namespace = "elastic",
+    kustomize_path = "deployment/",
+    overlay = "minikube",
+    srcs = [":kustomize-elk"],
 )

@@ -62,7 +62,7 @@ the data folder on the host (and to remove the same folder to reset the installa
 ### Via Port-Forward
 * Forward the Vault UI to http://127.0.0.1:7474
 ```bash
-❯ plz run //components/vault:ui [minikube|baremetal]
+❯ plz run //components/vault:ui
 ```
 
 ### Via Ingress on Baremetal
@@ -77,15 +77,14 @@ neo4j-ingress-bolt   <none>   bolt.192.168.1.151.nip.io              80, 443   6
 * 📝 **NOTE**: before deploying, make sure to replace the host IP address in:
   *  `//components/cartography/deployment/neo4j/overlays/baremetal/neo4j-ingress.yaml`
   *  `//components/cartography/setup/neo4j.sh`
-This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
-
+  *  This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
 * To access the Neo4j web UI:
   * Browse to: https://neo4j.192.168.1.151.nip.io/browser/
   * Connect URL: `bolt://bolt.192.168.1.151.nip.io:443`
   * Username: `neo4j`
   * Password: stored in Vault at `secret/cartography/neo4j-password`
 
-![](../.github/components/neo4j_ui.png)
+![](../../.github/components/neo4j_ui.png)
 
 
 ---

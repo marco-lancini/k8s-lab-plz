@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+spec:
+  rules:
+    # Replace with IP of host
+    - host: kibana.192.168.1.151.nip.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kibana
+              servicePort: 5601

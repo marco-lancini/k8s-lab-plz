@@ -45,7 +45,7 @@ If, for any reason, Vault goes into a sealed state, it can be unsealed with the 
 ```
 * Forwards the Vault UI to http://127.0.0.1:8200
 
-![](../.github/components/vault_ui.png)
+![](../../.github/components/vault_ui.png)
 
 ### Via Ingress on Baremetal
 ```bash

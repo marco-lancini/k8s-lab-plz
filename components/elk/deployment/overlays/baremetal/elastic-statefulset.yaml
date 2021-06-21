@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es-cluster
+spec:
+  volumeClaimTemplates:
+    - metadata:
+        name: datadir
+        labels:
+          app: elasticsearch
+      spec:
+        accessModes: ['ReadWriteOnce']
+        storageClassName: elastic-storage
+        resources:
+          requests:
+            storage: '1Gi'
