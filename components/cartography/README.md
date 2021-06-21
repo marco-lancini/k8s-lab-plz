@@ -75,7 +75,7 @@ neo4j-ingress-bolt   <none>   bolt.192.168.1.151.nip.io              80, 443   6
 ```
 
 * 📝 **NOTE**: before deploying, make sure to replace the host IP address in:
-  *  `//components/cartography/baremetal/neo4j-ingress.yaml`
+  *  `//components/cartography/deployment/neo4j/overlays/baremetal/neo4j-ingress.yaml`
   *  `//components/cartography/setup/neo4j.sh`
 This assumes you followed the setup described at "[Kubernetes Lab on Baremetal](https://www.marcolancini.it/2021/blog-kubernetes-lab-baremetal/)".
 
