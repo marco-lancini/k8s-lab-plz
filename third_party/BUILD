@@ -14,6 +14,20 @@ remote_file(
 )
 
 # ==============================================================================
+# ECK
+# ==============================================================================
+ECK_VERSION="1.1.2"
+ECK_HASH="c66243a442d0c7e71d077d5578905caebbd6ecfc"
+
+remote_file(
+    name = "eck-downloader",
+    out = "eck.yaml",
+    url = "https://download.elastic.co/downloads/eck/%s/all-in-one.yaml" % ECK_VERSION,
+    hashes = [ECK_HASH],
+    visibility = ["//components/elk/..."]
+)
+
+# ==============================================================================
 # PROMETHEUS
 # ==============================================================================
 PROMETHEUS_VERSION="8.15.6"
