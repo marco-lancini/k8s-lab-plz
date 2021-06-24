@@ -119,6 +119,12 @@ python_library(
 )
 
 python_library(
+    name = "elastic_connector",
+    srcs = ["consumers/elasticsearch/py/elastic_connector.py"],
+)
+
+
+python_library(
     name = "elastic_ingestor",
     srcs = ["consumers/elasticsearch/py/elastic_ingestor.py"],
     deps = [
@@ -132,6 +138,7 @@ docker_image(
     srcs = [
         ":cartography_queries",
         ":neo4j_connector",
+        ":elastic_connector",
         ":elastic_ingestor",
     ],
     dockerfile = "consumers/elasticsearch/deployment/base/Dockerfile",
