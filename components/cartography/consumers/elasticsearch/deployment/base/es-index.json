@@ -1,0 +1,1705 @@
+{
+  "mappings": {
+    "properties": {
+      "@timestamp": {
+        "type": "date"
+      },
+      "a": {
+        "properties": {
+          "displayname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "lifecyclestate": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "a1": {
+        "properties": {
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "a2": {
+        "properties": {
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "acl": {
+        "properties": {
+          "displayname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "owner": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "permission": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "type": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "b": {
+        "properties": {
+          "iam_config_bucket_policy_only": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "location": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "retention_period": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "storage_class": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "b1": {
+        "properties": {
+          "cidr_block": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "b2": {
+        "properties": {
+          "cidr_block": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "c": {
+        "properties": {
+          "audit_logging": {
+            "type": "boolean"
+          },
+          "cluster_ipv4cidr": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "current_master_version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "database_encryption": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "endpoint": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "endpoint_public_access": {
+            "type": "boolean"
+          },
+          "exposed_internet": {
+            "type": "boolean",
+            "null_value": false
+          },
+          "initial_version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "location": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "logging_service": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "master_authorized_networks": {
+            "type": "boolean",
+            "null_value": false
+          },
+          "monitoring_service": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "network": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "network_policy": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "platform_version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "private_endpoint": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "private_endpoint_enabled": {
+            "type": "boolean",
+            "null_value": false
+          },
+          "private_nodes": {
+            "type": "boolean",
+            "null_value": false
+          },
+          "public_endpoint": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "region": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "rolearn": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "services_ipv4cidr": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "status": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "subnetwork": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "d": {
+        "properties": {
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "f": {
+        "properties": {
+          "direction": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "disabled": {
+            "type": "boolean",
+            "null_value": false
+          },
+          "displayname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "g": {
+        "properties": {
+          "arn": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "inbound_account": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "inbound_group": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "inbound_range": {
+        "properties": {
+          "range": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "inbound_rule": {
+        "properties": {
+          "fromport": {
+            "type": "long"
+          },
+          "protocol": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "toport": {
+            "type": "long"
+          }
+        }
+      },
+      "inbound_vpc": {
+        "properties": {
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "instance": {
+        "properties": {
+          "db_instance_identifier": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "exposed_internet": {
+            "type": "boolean"
+          },
+          "exposed_internet_type": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "imageid": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "instanceid": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "instancename": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "instancetype": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "launchtime": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "privateipaddress": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "publicdnsname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "state": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "status": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "zone_name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "k": {
+        "properties": {
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "keyname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "l": {
+        "properties": {
+          "createdtime": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "dnsname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "exposed_internet": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "runtime": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "modifieddate": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "scheme": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "language": {
+        "type": "keyword",
+        "fields": {
+          "search": {
+            "type": "text",
+            "fielddata": true
+          }
+        }
+      },
+      "metadata": {
+        "properties": {
+          "query_description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "query_headers": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "query_id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "query_name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "n": {
+        "properties": {
+          "displayname": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "lifecyclestate": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "projectid": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "projectnumber": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "perm": {
+        "properties": {
+          "protocol": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "fromport": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "toport": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "rule": {
+        "properties": {
+          "range": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "org": {
+        "properties": {
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "outbound_account": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "p": {
+        "properties": {
+          "arn": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "attachmentcount": {
+            "type": "long"
+          },
+          "fromport": {
+            "type": "long"
+          },
+          "isattachable": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "passwordlastused": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "protocol": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "toport": {
+            "type": "long"
+          },
+          "updatedate": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "userid": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "policy": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "peer": {
+        "properties": {
+          "connection_id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "status_code": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "r": {
+        "properties": {
+          "arn": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "createdate": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "roleid": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "type": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "value": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "cluster_status": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "endpoint_address": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "endpoint_port": {
+            "type": "long"
+          },
+          "number_of_nodes": {
+            "type": "long"
+          },
+          "db_name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "master_username": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "publicly_accessible": {
+            "type": "boolean"
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "created_at": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "r1": {
+        "properties": {
+          "arn": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "rds": {
+        "properties": {
+          "db_name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "endpoint_address": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "endpoint_port": {
+            "type": "long"
+          },
+          "engine_version": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "instance_create_time": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "master_username": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "publicly_accessible": {
+            "type": "boolean"
+          },
+          "storage_encrypted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ru": {
+        "properties": {
+          "fromport": {
+            "type": "long"
+          },
+          "protocol": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "toport": {
+            "type": "long"
+          }
+        }
+      },
+      "s": {
+        "properties": {
+          "anonymous_access": {
+            "type": "boolean"
+          },
+          "anonymous_actions": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "creationdate": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "error_codes": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "gateway_address": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "ip_cidr_range": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "languages": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "target": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "s1": {
+        "properties": {
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "target": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "s2": {
+        "properties": {
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "target": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "s3": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "sg": {
+        "properties": {
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "t": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "arn": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "state": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "owner_id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "u": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "userid": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "v": {
+        "properties": {
+          "description": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "id": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "is_default": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "primary_cidr_block": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "region": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          },
+          "routing_config_routing_mode": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      },
+      "z": {
+        "properties": {
+          "name": {
+            "type": "keyword",
+            "fields": {
+              "search": {
+                "type": "text",
+                "fielddata": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
