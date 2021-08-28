@@ -6,6 +6,8 @@ metadata:
 spec:
   schedule: '0 7 * * *' # Run every day at 7am
   concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       backoffLimit: 5
@@ -55,37 +57,11 @@ spec:
                   # Populate env vars from secrets: NEO4J_SECRETS_PASSWORD
                   export $(grep -v '#.*' /vault/secrets/neo4j-password | xargs)
 
-                  # Setup AWS credentials
-                  mkdir -p ~/.aws/
-
-                  # Retrieve credentials for the security-audit-user
-                  aws_access_key_id=$(grep access_key /vault/secrets/aws-user.txt | awk '{print $2}')
-                  aws_secret_access_key=$(grep secret_key /vault/secrets/aws-user.txt | awk '{print $2}')
-                  aws_session_token=$(grep security_token /vault/secrets/aws-user.txt | awk '{print $2}')
-
-                  #   [default]
-                  #   aws_access_key_id = X
-                  #   aws_secret_access_key = X
-                  #   aws_session_token = x
-                  cat <<EOF >> ~/.aws/credentials
-                  [${AWS_DEFAULT_PROFILE}]
-                  aws_access_key_id=$aws_access_key_id
-                  aws_secret_access_key=$aws_secret_access_key
-                  aws_session_token=$aws_session_token
-                  EOF
-
-                  # Copy the config for the Spoke accounts from the configmap
-                  cp /opt/aws-config/aws-config ~/.aws/config
+                  # Retrieve credentials for the security audit user,
+                  # and setup config for the Spoke (child) accounts
+                  /docker-entrypoint.sh
 
                   # Run Cartography
                   cartography --neo4j-uri ${NEO4J_URI} --neo4j-user ${NEO4J_USER} --neo4j-password-env-var NEO4J_SECRETS_PASSWORD --aws-sync-all-profiles
 
                   echo "Cartography run completed"
-              volumeMounts:
-                - name: aws-accounts-configmap-volume
-                  mountPath: /opt/aws-config
-                  readOnly: true
-          volumes:
-            - name: aws-accounts-configmap-volume
-              configMap:
-                name: aws-accounts-configmap
