@@ -6,6 +6,9 @@ metadata:
 spec:
   serviceName: neo4j-statefulset
   replicas: 1
+  selector:
+    matchLabels:
+      app: cartography
   template:
     metadata:
       annotations:
