@@ -15,7 +15,8 @@ plz run //components/elk:elk-namespace_push
 # Deploying Elastic Operator
 #
 printf "[+] Deploying Elastic Operator...\n"
-plz run //components/elk:eck_push
+plz run //components/elk:eck-crds_push
+plz run //components/elk:eck-operator_push
 plz run //common:wait_pod -- ${NAMESPACE} "Elastic Operator" ${SELECTOR}
 
 #
