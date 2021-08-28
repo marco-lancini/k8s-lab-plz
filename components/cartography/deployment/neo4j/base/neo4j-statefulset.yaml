@@ -88,6 +88,12 @@ spec:
               export NEO4J_dbms_connector_bolt_tls__level=OPTIONAL
 
               #
+              # Performance
+              #
+              export NEO4J_dbms_memory_heap_initial__size=4G
+              export NEO4J_dbms_memory_heap_max__size=4G
+
+              #
               # Run Neo4j
               #
               echo "Starting Neo4j...."
@@ -107,10 +113,10 @@ spec:
               containerPort: 7687
           resources:
             requests:
-              memory: 512Mi
+              memory: 2Gi
               cpu: '0.1'
             limits:
-              memory: 1Gi
+              memory: 5Gi
               cpu: '0.2'
           volumeMounts:
             - name: datadir
