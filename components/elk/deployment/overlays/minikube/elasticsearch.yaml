@@ -6,8 +6,22 @@ spec:
   nodeSets:
     - name: default
       count: 1
+      config:
+        node.master: true
+        node.data: true
+        node.ingest: true
+        node.store.allow_mmap: false
       podTemplate:
         spec:
+          containers:
+            - name: elasticsearch
+              securityContext:
+                # Needed by Elasticsearch for chroot
+                privileged: true
+                runAsUser: 0
+              volumeMounts:
+                - name: elasticsearch-data
+                  mountPath: '/usr/share/elasticsearch/data'
           volumes:
             - name: elasticsearch-data
               emptyDir: {}

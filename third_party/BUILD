@@ -16,14 +16,23 @@ remote_file(
 # ==============================================================================
 # ECK
 # ==============================================================================
-ECK_VERSION="1.1.2"
-ECK_HASH="c66243a442d0c7e71d077d5578905caebbd6ecfc"
+ECK_VERSION="1.7.1"
+ECK_CRDS_HASH="8e650017650d315bcb9a992a69d2a171c9e819cf"
+ECK_OPERATOR_HASH="edde881bdfbfdb78ba041e19fa59578f712b0926"
 
 remote_file(
-    name = "eck-downloader",
-    out = "eck.yaml",
-    url = "https://download.elastic.co/downloads/eck/%s/all-in-one.yaml" % ECK_VERSION,
-    hashes = [ECK_HASH],
+    name = "eck-crds",
+    out = "eck-crds.yaml",
+    url = "https://download.elastic.co/downloads/eck/%s/crds-legacy.yaml" % ECK_VERSION,
+    hashes = [ECK_CRDS_HASH],
+    visibility = ["//components/elk/..."]
+)
+
+remote_file(
+    name = "eck-operator",
+    out = "eck-operator.yaml",
+    url = "https://download.elastic.co/downloads/eck/%s/operator-legacy.yaml" % ECK_VERSION,
+    hashes = [ECK_OPERATOR_HASH],
     visibility = ["//components/elk/..."]
 )
 

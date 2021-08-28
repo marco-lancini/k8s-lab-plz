@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: test
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: bookinfo-ingress
@@ -17,9 +17,12 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: productpage
-              servicePort: 9080
+              service:
+                name: productpage
+                port:
+                  number: 9080
 ---
 apiVersion: v1
 kind: Service

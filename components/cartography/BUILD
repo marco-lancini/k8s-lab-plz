@@ -14,11 +14,12 @@ sh_binary(
     main = "forward-ui.sh",
 )
 
+
+
 k8s_config(
     name = "cartography-namespace",
     srcs = ["deployment/cartography-namespace.yaml"],
 )
-
 
 # ==============================================================================
 # Deploy Neo4J

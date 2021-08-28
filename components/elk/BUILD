@@ -19,14 +19,23 @@ k8s_config(
 )
 
 # ==============================================================================
-# ECK
+# OPERATOR
 # ==============================================================================
 k8s_config(
-    name = "eck",
-    srcs = ["//third_party:eck-downloader"],
+    name = "eck-crds",
+    srcs = ["//third_party:eck-crds"],
     visibility = ["//components/elk/..."]
 )
 
+k8s_config(
+    name = "eck-operator",
+    srcs = ["//third_party:eck-operator"],
+    visibility = ["//components/elk/..."]
+)
+
+# ==============================================================================
+# ELK
+# ==============================================================================
 kustomize_prep(
     name = "kustomize-elk",
     srcs = glob(["deployment/**/*.yaml"]),
