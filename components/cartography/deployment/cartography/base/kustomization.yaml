@@ -6,5 +6,4 @@ commonLabels:
   app: cartography
   component: cartography
 resources:
-  - aws-accounts-configmap.yaml
   - cartography-job.yaml
