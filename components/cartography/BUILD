@@ -14,8 +14,6 @@ sh_binary(
     main = "forward-ui.sh",
 )
 
-
-
 k8s_config(
     name = "cartography-namespace",
     srcs = ["deployment/cartography-namespace.yaml"],
@@ -63,9 +61,10 @@ sh_binary(
 
 docker_image(
     name = "cartography_docker",
-    dockerfile = "deployment/cartography/Dockerfile-cartography",
+    dockerfile = "deployment/cartography/docker/Dockerfile",
+    srcs = glob(["deployment/cartography/docker/**/*"]),
     image = "cartography",
-    version = "1.4",
+    version = "1.5",
     repo = "marcolancini",
     visibility = ["//components/cartography/..."],
 )
