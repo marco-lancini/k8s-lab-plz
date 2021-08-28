@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: vault-ingress
@@ -13,6 +13,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: vault-baremetal-helm-ui
-              servicePort: 8200
+              service:
+                name: vault-baremetal-helm-ui
+                port:
+                  number: 8200
