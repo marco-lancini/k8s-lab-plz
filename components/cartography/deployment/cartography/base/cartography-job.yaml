@@ -51,7 +51,7 @@ spec:
                 # - name: GOOGLE_APPLICATION_CREDENTIALS
                 #   value: /vault/secrets/security-reviewer-sa.json
               command:
-                - '/bin/sh'
+                - '/bin/bash'
                 - '-c'
                 - |
                   # Populate env vars from secrets: NEO4J_SECRETS_PASSWORD
