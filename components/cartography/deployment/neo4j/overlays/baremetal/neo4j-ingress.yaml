@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: neo4j-ingress
@@ -15,16 +15,19 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: neo4j-service
-              servicePort: 7474
+              service:
+                name: neo4j-service
+                port:
+                  number: 7474
   tls:
     - hosts:
         - neo4j.192.168.1.151.nip.io
       secretName: neo4j-web-tls
 
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: neo4j-ingress-bolt
@@ -37,9 +40,12 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: neo4j-bolt-service
-              servicePort: 7687
+              service:
+                name: neo4j-bolt-service
+                port:
+                  number: 7687
   tls:
     - hosts:
         - bolt.192.168.1.151.nip.io
