@@ -67,7 +67,7 @@ the data folder on the host (and to remove the same folder to reset the installa
 ### Via Ingress on Baremetal
 * Verify the Ingresses have been deployed:
 ```bash
-❯ kubectl -n elastic get ingress
+❯ kubectl -n elastic-system get ingress
 NAME             CLASS    HOSTS                         ADDRESS   PORTS   AGE
 kibana-ingress   <none>   kibana.192.168.1.151.nip.io             80      8m29s
 ```
