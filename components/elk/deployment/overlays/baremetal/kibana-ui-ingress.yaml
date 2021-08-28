@@ -1,5 +1,5 @@
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: kibana-ingress
@@ -12,6 +12,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: kibana-kb-http
-              servicePort: 5601
+              service:
+                name: kibana-kb-http
+                port:
+                  number: 5601
