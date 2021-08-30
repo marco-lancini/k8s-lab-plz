@@ -97,3 +97,25 @@ kustomize(
     overlay = "minikube",
     srcs = [":kustomize-cartography"],
 )
+
+# ==============================================================================
+# Deploy Elasticsearch Integration
+# ==============================================================================
+# Queries file
+remote_file(
+    name = "cartography_queries",
+    url = "https://raw.githubusercontent.com/marco-lancini/cartography-queries/master/queries/queries.json"
+)
+
+# Python Scripts
+python_library(
+    name = "neo4j_connector",
+    srcs = ["consumers/elasticsearch/py/neo4j_connector.py"],
+    deps = [
+        ":cartography_queries",
+        "//third_party/python:neo4j",
+        "//third_party/python:neobolt",
+        "//third_party/python:neotime",
+    ],
+)
+
