@@ -14,6 +14,11 @@ sh_binary(
     main = "forward-ui.sh",
 )
 
+sh_binary(
+    name = "deploy-elastic-ingestor",
+    main = "setup/elastic-ingestor.sh",
+)
+
 k8s_config(
     name = "cartography-namespace",
     srcs = ["deployment/cartography-namespace.yaml"],
