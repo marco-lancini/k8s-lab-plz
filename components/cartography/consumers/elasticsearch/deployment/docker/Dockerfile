@@ -15,6 +15,6 @@ COPY /queries.json /neo4j_connector.py /elastic_connector.py /elastic_ingestor.p
 RUN chmod +x /app/neo4j_connector.py /app/elastic_connector.py /app/elastic_ingestor.py
 
 # Entrypoint
-RUN chown -R app:app /src
+RUN chown -R app:app /app/
 USER app
 CMD ["python3", "/elastic_ingestor.py"]
