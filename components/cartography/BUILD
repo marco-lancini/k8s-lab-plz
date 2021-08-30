@@ -124,3 +124,34 @@ python_library(
     srcs = ["consumers/elasticsearch/py/elastic_connector.py"],
 )
 
+python_library(
+    name = "elastic_ingestor",
+    srcs = ["consumers/elasticsearch/py/elastic_ingestor.py"],
+    deps = [
+        ":neo4j_connector",
+    ],
+)
+
+# Docker image
+filegroup(
+    name = "docker-requirements",
+    srcs = [
+        "consumers/elasticsearch/deployment/docker/requirements.txt",
+    ],
+)
+
+docker_image(
+    name = "cartography_ingestor_image",
+    srcs = [
+        ":docker-requirements",
+        ":cartography_queries",
+        ":neo4j_connector",
+        ":elastic_connector",
+        ":elastic_ingestor",
+    ],
+    dockerfile = "consumers/elasticsearch/deployment/docker/Dockerfile",
+    image = "cartography_elastic_ingestor",
+    repo = "marcolancini",
+    visibility = ["//components/cartography/..."],
+)
+

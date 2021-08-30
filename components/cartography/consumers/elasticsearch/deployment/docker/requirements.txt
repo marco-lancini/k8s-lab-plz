@@ -1,0 +1,3 @@
+certifi
+elasticsearch
+neo4j
