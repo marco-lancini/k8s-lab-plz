@@ -155,3 +155,28 @@ docker_image(
     visibility = ["//components/cartography/..."],
 )
 
+# Kubernetes deployment
+kustomize_prep(
+    name = "kustomize-elastic-ingestor",
+    srcs = glob(["consumers/elasticsearch/deployment/**/*.*"]),
+    containers = [
+        ":cartography_ingestor_image",
+    ],
+)
+
+kustomize(
+    name = "elastic-ingestor-baremetal",
+    namespace = "cartography",
+    kustomize_path = "consumers/elasticsearch/deployment",
+    overlay = "baremetal",
+    srcs = [":kustomize-elastic-ingestor"],
+)
+
+
+kustomize(
+    name = "elastic-ingestor-minikube",
+    namespace = "cartography",
+    kustomize_path = "consumers/elasticsearch/deployment",
+    overlay = "minikube",
+    srcs = [":kustomize-elastic-ingestor"],
+)
