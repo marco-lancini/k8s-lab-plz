@@ -13,6 +13,7 @@ RUN pip3 install --upgrade -r /src/requirements.txt
 
 # Add libraries
 COPY /queries.json /neo4j_connector.py /elastic_connector.py /elastic_ingestor.py /
+RUN chmod +x /neo4j_connector.py /elastic_connector.py /elastic_ingestor.py
 
 # Entrypoint
 USER app
