@@ -24,7 +24,7 @@ pip_library(
 pip_library(
     name = "neotime",
     version = "1.7.4",
-    hashes = ["ebf5fa9b7416fbeac8dce64ed002bfcb4e095e63de357ca6b8c7eb97562557ae"],
+    hashes = ["481df3ea864383c4cf30b80be04d16235d518f17886c5b6613a11590ad9ecadc"],
 )
 
 python_wheel(
