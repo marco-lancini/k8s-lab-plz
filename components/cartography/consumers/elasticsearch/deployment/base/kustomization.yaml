@@ -1,0 +1,15 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: cartography
+commonLabels:
+  app: cartography
+  component: cartography-elastic-ingestor
+
+resources:
+  - ingestor-cronjob.yaml
+
+configMapGenerator:
+  - name: cartography-elastic-index-configmap
+    files:
+      - es-index.json
