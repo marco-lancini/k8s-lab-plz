@@ -119,3 +119,8 @@ python_library(
     ],
 )
 
+python_library(
+    name = "elastic_connector",
+    srcs = ["consumers/elasticsearch/py/elastic_connector.py"],
+)
+
