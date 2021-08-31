@@ -4,7 +4,9 @@ import logging
 from neo4j import GraphDatabase
 from datetime import datetime, timedelta
 
-logger = logging.getLogger('neo4j_connector')
+logging.basicConfig()
+logger = logging.getLogger("neo4j_connector")
+logger.setLevel(logging.DEBUG)
 
 NEO4J_QUERIES_FILES = [
     'queries.json',
@@ -18,6 +20,7 @@ class NeoDB(object):
     the backend Neo4j database.
     This should never be instantiated directly.
     """
+
     def __init__(self):
         self._parse_config()
         self._connect()
@@ -64,6 +67,7 @@ class Neo4jConnector(object):
     Main connector which abstract over the actual execution of queries,
     and provide an interface to run queries and obtain results
     """
+
     def __init__(self):
         # Initialize DB
         self.db = NeoDB()
@@ -121,9 +125,11 @@ class Neo4jConnector(object):
     def _filter_by_account(self, cypher, account):
         if account:
             if 'WHERE' in cypher:
-                cypher = cypher.replace(' WHERE ', ' WHERE a.name = "{}" and '.format(account))
+                cypher = cypher.replace(
+                    ' WHERE ', ' WHERE a.name = "{}" and '.format(account))
             else:
-                cypher = cypher.replace(' RETURN ', ' WHERE a.name = "{}" RETURN '.format(account))
+                cypher = cypher.replace(
+                    ' RETURN ', ' WHERE a.name = "{}" RETURN '.format(account))
         return cypher
 
     #

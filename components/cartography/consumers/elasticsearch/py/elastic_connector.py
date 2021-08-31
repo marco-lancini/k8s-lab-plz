@@ -6,8 +6,9 @@ import logging
 import certifi
 import elasticsearch
 
-
-logger = logging.getLogger('elastic_connector')
+logging.basicConfig()
+logger = logging.getLogger("elastic_connector")
+logger.setLevel(logging.DEBUG)
 
 
 class ElasticClient:
