@@ -14,16 +14,21 @@ logger.setLevel(logging.DEBUG)
 class ElasticClient:
     """Wrapper around Elasticsearch client"""
 
-    def __init__(self, url, ca, dry_run=False):
+    def __init__(self, url, ca, tls_enabled, dry_run=False):
         """
         url: URL of Elasticsearch cluster to connect to
         ca: CA certificate for Elasticsearch
+        tls_enabled: Whether ES supports TLS
         dry_run: if True, it will not push to Elasticsearch
         """
         if not url:
             raise Exception('Elasticsearch URL must be specified')
         self.dry_run = dry_run
-        self.es = elasticsearch.Elasticsearch([url], ca_certs=ca)
+        verify_certs = True if tls_enabled else False
+        self.es = elasticsearch.Elasticsearch(
+            [url],
+            verify_certs=verify_certs,
+            ca_certs=ca)
 
     def send(self, index, doc_type, data):
         """Send data to Elasticsearch.
@@ -52,21 +57,26 @@ class ElasticsearchConsumer(object):
     """
     DOC_TYPE = '_doc'
 
-    def __init__(self, url, index, dry_run, elastic_user, elastic_password):
-        self._parse_config(url, index, dry_run, elastic_user, elastic_password)
+    def __init__(self, url, index, dry_run, elastic_user, elastic_password, tls_enabled):
+        self._parse_config(url, index, dry_run,
+                           elastic_user,
+                           elastic_password,
+                           tls_enabled)
         self._connect()
 
-    def _parse_config(self, url, index, dry_run, elastic_user, elastic_password):
+    def _parse_config(self, url, index, dry_run, elastic_user, elastic_password, tls_enabled):
         """
         url: The domain name (no protocol, no port) of the Elasticsearch instance to send the results to
         index: The Elasticsearch index to use
         dry_run: If set, will not upload any data to Elasticsearch
+        tls_enabled: Whether ES supports TLS
         """
         self.url = url
         self.index = index
         self.dry_run = dry_run
         self._elatic_user = elastic_user
         self._elatic_password = elastic_password
+        self.tls_enabled = tls_enabled
 
         # Validate url and index have been specified
         if not self.url or not self.index:
@@ -75,17 +85,21 @@ class ElasticsearchConsumer(object):
         # Append current date to index: indexname-YYYY.MM.DD
         self.index = "{}-{}".format(self.index,
                                     date.today().strftime("%Y.%m.%d"))
-        # Dry run comes from env vars, so it is a string
+        # dry_run and tls_enabled come from env vars, so they are strings
         self.dry_run = True if self.dry_run == 'True' else False
+        self.tls_enabled = True if self.tls_enabled == 'True' else False
 
     def _connect(self):
-        self.es_location = "https://{}:{}@{}:443".format(
+        protocol = 'https' if self.tls_enabled else 'http'
+        self.es_location = "{}://{}:{}@{}".format(
+            protocol,
             self._elatic_user,
             self._elatic_password,
             self.url
         )
         self.es_client = ElasticClient(url=self.es_location,
                                        ca=certifi.where(),
+                                       tls_enabled=self.tls_enabled,
                                        dry_run=self.dry_run)
         logger.info(
             'ElasticSearch Client instantiated: {} / {}'.format(self.url, self.index))
