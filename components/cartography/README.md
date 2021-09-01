@@ -96,6 +96,8 @@ the data folder on the host (and to remove the same folder to reset the installa
 
 ## Elasticsearch Ingestor
 
+![](../../.github/components/cartography_elk.png)
+
 The Elasticsearch Ingestor is a CronJob which executes
 a set of [custom queries](https://github.com/marco-lancini/cartography-queries/tree/main/queries)
 against the Neo4j database, and pushes the results to Elasticsearch.
