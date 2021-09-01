@@ -151,7 +151,7 @@ docker_image(
     ],
     dockerfile = "consumers/elasticsearch/deployment/docker/Dockerfile",
     image = "cartography_elastic_ingestor",
-    version = "0.1.1",
+    version = "0.1.4",
     repo = "marcolancini",
     visibility = ["//components/cartography/..."],
 )
