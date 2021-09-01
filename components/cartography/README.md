@@ -50,12 +50,12 @@
   ❯ kubectl -n cartography create job --from=cronjob/cartography-run cartography-run
   ```
 
-📝 **NOTE FOR BAREMETAL**: before deploying, make sure to prepare
+* 📝 **NOTE FOR BAREMETAL**: before deploying, make sure to prepare
 the data folder on the host (and to remove the same folder to reset the installation):
-```bash
-❯ sudo mkdir -p /etc/plz-k8s-lab/cartography/neo4j/
-❯ sudo chmod -R a+rw /etc/plz-k8s-lab/cartography/
-```
+  ```bash
+  ❯ sudo mkdir -p /etc/plz-k8s-lab/cartography/neo4j/
+  ❯ sudo chmod -R a+rw /etc/plz-k8s-lab/cartography/
+  ```
 
 
 ---
