@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 logging.basicConfig()
 logger = logging.getLogger("neo4j_connector")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 NEO4J_QUERIES_FILES = [
     'queries.json',
@@ -52,7 +52,8 @@ class NeoDB(object):
             result = tx.run(query, **kwargs)
         else:
             result = tx.run(query)
-        return result
+        values = [record.data() for record in result]
+        return values
 
     def query(self, q, kwargs=None):
         with self._driver.session() as session:
@@ -88,6 +89,7 @@ class Neo4jConnector(object):
                 extracted.append(temp)
         queries_str = "[%s]" % (",".join(extracted))
         self.QUERIES = json.loads(queries_str)
+        logger.info(f"{len(self.QUERIES)} queries loaded")
 
     #
     # UTILS
@@ -146,15 +148,18 @@ class Neo4jConnector(object):
             kwargs = self._parse_dynamic_params(q)
             # If an account is provided, inject a WHERE clause to filter by account
             cypher = self._filter_by_account(q['query'], account)
-            # Execute the query and parse results as dictionaries
+            # Add return clause
             cypher = "{} {}".format(cypher, q['return'])
-            records = [x.data() for x in self.db.query(cypher, kwargs)]
+            # Execute the query and parse results as dictionaries
+            logger.debug(f"Running query: {cypher}")
+            records = self.db.query(cypher, kwargs)
             # Add records to result list
             temp = {}
             temp['name'] = q['name']
             temp['description'] = q['description']
             temp['headers'] = q['result_headers']
             temp['result'] = records
+            logger.debug(f"Result: {len(records)} records")
             queries_result.append(temp)
         return queries_result
 
