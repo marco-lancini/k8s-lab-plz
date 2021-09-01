@@ -9,7 +9,7 @@ from neo4j_connector import Neo4jConnector
 
 logging.basicConfig()
 logger = logging.getLogger("elastic_ingestor")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 
 class Ingestor(object):
@@ -69,6 +69,7 @@ class Ingestor(object):
         """
         For each ES client, push the records provided
         """
+        logger.debug(f"Pushing {query_name}: {records}")
         for c in self.es_clients:
             c.send_to_es(query_name, records)
 
@@ -91,7 +92,8 @@ class Ingestor(object):
         Enrich results from Neo4j with metadata needed by ES
         """
         record['metadata.query_name'] = query['name']
-        record['metadata.query_id'] = '{}_{}'.format(query['name'], self.run_tag)
+        record['metadata.query_id'] = '{}_{}'.format(
+            query['name'], self.run_tag)
         record['metadata.query_description'] = query['description']
         record['metadata.query_headers'] = query['headers']
         record['@timestamp'] = int(round(time.time() * 1000))
@@ -117,6 +119,7 @@ class Ingestor(object):
             #   'description': 'Full list of GCPProjects',
             #   'headers': ['project_id', ...],
             #   'result': [ {...}, ]
+            logger.debug(f"Processing query: {query}")
             for r in query['result']:
                 # Sanitise fields
                 sanitised = self._sanitise_fields(r)
@@ -137,11 +140,11 @@ def main():
     logger.info("Starting ingesting data from Neo4j...")
 
     # Queries - AWS
-    queries_results = ingestor.query_by_tag(['cloud', 'aws'])
+    queries_results = ingestor.query_by_tag(['aws'])
     ingestor.push_results(queries_results)
 
     # Queries - GCP
-    queries_results = ingestor.query_by_tag(['cloud', 'gcp'])
+    queries_results = ingestor.query_by_tag(['gcp'])
     ingestor.push_results(queries_results)
 
     logger.info("Ingestion completed successfully")
