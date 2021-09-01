@@ -11,7 +11,8 @@ RUN python -m pip install --upgrade pip
 RUN pip3 install --upgrade -r /app/requirements.txt
 
 # Add libraries
-COPY /queries.json /neo4j_connector.py /elastic_connector.py /elastic_ingestor.py /app/
+COPY /queries.json /
+COPY /neo4j_connector.py /elastic_connector.py /elastic_ingestor.py /app/
 RUN chmod +x /app/neo4j_connector.py /app/elastic_connector.py /app/elastic_ingestor.py
 
 # Entrypoint
