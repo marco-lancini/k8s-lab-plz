@@ -16,9 +16,9 @@
 
 ## Deploy Cartography and Neo4j
 
-<div style="text-align:center">
+<p align="center">
   <img src="../../.github/components/cartography_setup.png" width="50%">
-</div>
+</p>
 
 * Deploy Cartography and Neo4j:
   ```bash
@@ -90,9 +90,9 @@ the data folder on the host (and to remove the same folder to reset the installa
   * Username: `neo4j`
   * Password: stored in Vault at `secret/cartography/neo4j-password`
 
-<div style="text-align:center">
+<p align="center">
   <img src="../../.github/components/neo4j_ui.png" width="50%">
-</div>
+</p>
 
 
 ---
@@ -100,9 +100,9 @@ the data folder on the host (and to remove the same folder to reset the installa
 
 ## Elasticsearch Ingestor
 
-<div style="text-align:center">
+<p align="center">
   <img src="../../.github/components/cartography_elk.png" width="50%">
-</div>
+</p>
 
 The Elasticsearch Ingestor is a CronJob which executes
 a set of [custom queries](https://github.com/marco-lancini/cartography-queries/tree/main/queries)
