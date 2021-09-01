@@ -25,4 +25,4 @@ repos:
         description: Lint kube files with system.
         entry: kubeval
         language: system
-        files: components/
+        files: components/**/*.yaml
