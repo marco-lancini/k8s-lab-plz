@@ -8,7 +8,7 @@ import elasticsearch
 
 logging.basicConfig()
 logger = logging.getLogger("elastic_connector")
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 
 class ElasticClient:
