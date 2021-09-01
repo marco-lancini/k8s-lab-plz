@@ -14,6 +14,11 @@ sh_binary(
     main = "forward-ui.sh",
 )
 
+sh_binary(
+    name = "deploy-elastic-ingestor",
+    main = "setup/elastic-ingestor.sh",
+)
+
 k8s_config(
     name = "cartography-namespace",
     srcs = ["deployment/cartography-namespace.yaml"],
@@ -91,4 +96,87 @@ kustomize(
     kustomize_path = "deployment/cartography",
     overlay = "minikube",
     srcs = [":kustomize-cartography"],
+)
+
+# ==============================================================================
+# Deploy Elasticsearch Integration
+# ==============================================================================
+# Queries file
+remote_file(
+    name = "cartography_queries",
+    url = "https://raw.githubusercontent.com/marco-lancini/cartography-queries/master/queries/queries.json"
+)
+
+# Python Scripts
+python_library(
+    name = "neo4j_connector",
+    srcs = ["consumers/elasticsearch/py/neo4j_connector.py"],
+    deps = [
+        ":cartography_queries",
+        "//third_party/python:neo4j",
+        "//third_party/python:neobolt",
+        "//third_party/python:neotime",
+    ],
+)
+
+python_library(
+    name = "elastic_connector",
+    srcs = ["consumers/elasticsearch/py/elastic_connector.py"],
+)
+
+python_library(
+    name = "elastic_ingestor",
+    srcs = ["consumers/elasticsearch/py/elastic_ingestor.py"],
+    deps = [
+        ":neo4j_connector",
+    ],
+)
+
+# Docker image
+filegroup(
+    name = "docker-requirements",
+    srcs = [
+        "consumers/elasticsearch/deployment/docker/requirements.txt",
+    ],
+)
+
+docker_image(
+    name = "cartography_ingestor_image",
+    srcs = [
+        ":docker-requirements",
+        ":cartography_queries",
+        ":neo4j_connector",
+        ":elastic_connector",
+        ":elastic_ingestor",
+    ],
+    dockerfile = "consumers/elasticsearch/deployment/docker/Dockerfile",
+    image = "cartography_elastic_ingestor",
+    version = "0.1.4",
+    repo = "docker.io/marcolancini",
+    visibility = ["//components/cartography/..."],
+)
+
+# Kubernetes deployment
+kustomize_prep(
+    name = "kustomize-elastic-ingestor",
+    srcs = glob(["consumers/elasticsearch/deployment/**/*.*"]),
+    containers = [
+        ":cartography_ingestor_image",
+    ],
+)
+
+kustomize(
+    name = "elastic-ingestor-baremetal",
+    namespace = "cartography",
+    kustomize_path = "consumers/elasticsearch/deployment",
+    overlay = "baremetal",
+    srcs = [":kustomize-elastic-ingestor"],
+)
+
+kustomize(
+    name = "elastic-ingestor-minikube",
+    namespace = "cartography",
+    kustomize_path = "consumers/elasticsearch/deployment",
+    overlay = "minikube",
+    srcs = [":kustomize-elastic-ingestor"],
 )

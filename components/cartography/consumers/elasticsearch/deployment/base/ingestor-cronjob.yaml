@@ -1,0 +1,79 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cartography-elastic-ingestor
+spec:
+  schedule: '0 10 * * *' # Run every day at 10am
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      backoffLimit: 5
+      template:
+        metadata:
+          annotations:
+            vault.hashicorp.com/agent-inject: 'true'
+            vault.hashicorp.com/role: 'vault-agent'
+            #
+            # NEO4J PASSWORD FROM VAULT
+            #
+            vault.hashicorp.com/agent-inject-secret-neo4j-password: 'secret/data/cartography/neo4j-password'
+            vault.hashicorp.com/agent-inject-template-neo4j-password: |
+              {{ with secret "secret/data/cartography/neo4j-password" -}}
+                NEO4J_SECRETS_PASSWORD="{{ .Data.data.NEO4J_SECRETS_PASSWORD }}"
+              {{- end }}
+            ## END OF CREDENTIALS SETUP
+        spec:
+          serviceAccountName: vault-agent
+          restartPolicy: Never
+          securityContext:
+            fsGroup: 1000
+          containers:
+            - name: cartography-elastic-ingestor
+              image: //components/cartography:cartography_ingestor_image
+              securityContext:
+                allowPrivilegeEscalation: false
+              env:
+                - name: NEO4J_URI
+                  value: 'bolt://neo4j-bolt-service:7687'
+                - name: NEO4J_USER
+                  value: 'neo4j'
+                - name: ELASTIC_URL
+                  value: 'elasticsearch-es-http.elastic-system.svc.cluster.local:9200'
+                - name: ELASTIC_TLS_ENABLED
+                  value: 'False'
+                - name: ELASTIC_INDEX
+                  value: 'cartography'
+                - name: ELASTIC_DRY_RUN
+                  value: 'False'
+                - name: ELASTIC_INDEX_SPEC
+                  value: '/opt/es-index/es-index.json'
+              command:
+                - '/bin/sh'
+                - '-c'
+                - |
+                  # Populate env vars from secrets:
+                  #     NEO4J_SECRETS_PASSWORD
+                  #     ELASTICSEARCH_USER
+                  #     ELASTICSEARCH_PASSWORD
+                  export $(grep -v '#.*' /vault/secrets/neo4j-password | xargs)
+                  export ELASTICSEARCH_USER=$(cat /vault/secret/cartography-es-writer/username)
+                  export ELASTICSEARCH_PASSWORD=$(cat /vault/secret/cartography-es-writer/password)
+
+                  # Run the ingestor
+                  python3 /app/elastic_ingestor.py
+                  echo "Ingestion run completed"
+              volumeMounts:
+                - name: elasticsearch-credentials-volume
+                  mountPath: /vault/secret/cartography-es-writer
+                  readOnly: true
+                - name: cartography-elastic-configmap-volume
+                  mountPath: /opt/es-index
+                  readOnly: true
+          volumes:
+            - name: elasticsearch-credentials-volume
+              secret:
+                secretName: elastic-credentials
+            - name: cartography-elastic-configmap-volume
+              configMap:
+                name: cartography-elastic-index-configmap

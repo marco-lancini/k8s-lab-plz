@@ -63,5 +63,3 @@ spec:
 
                   # Run Cartography
                   cartography --neo4j-uri ${NEO4J_URI} --neo4j-user ${NEO4J_USER} --neo4j-password-env-var NEO4J_SECRETS_PASSWORD --aws-sync-all-profiles
-
-                  echo "Cartography run completed"
