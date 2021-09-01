@@ -4,10 +4,10 @@
 
 ## Prerequisites
 
-| Component                  | Instructions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Vault                      | ⚠️ This module depends on a Vault installation. Please refer to [Vault Setup](../vault/) for more information.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| Elasticsearch (optional)   | ⚠️ This module depends on an ELK installation. Please refer to [ELK Setup](../elk/) for more information.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Component                  | Instructions                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vault                      | ⚠️ This module depends on a Vault installation. Please refer to [Vault Setup](../vault/) for more information.                                                                                                                                                                                                                                                                                                                                                                      |
+| Elasticsearch (optional)   | ⚠️ This module depends on an ELK installation. Please refer to [ELK Setup](../elk/) for more information.                                                                                                                                                                                                                                                                                                                                                                           |
 | Cloud Provider Credentials | <ul><li>You will need to generate access tokens for Cartography to use.</li><li>For example, for AWS:<ul><li>You can use the [aws-security-reviewer](https://github.com/marco-lancini/utils/tree/main/terraform/aws-security-reviewer) Terraform module to automate the setup of roles and users needed to perform a security audit of AWS accounts in an Hub and Spoke model.</li><li>Then, generate access keys for the IAM user and keep them ready to use.</li></ul></li></ul> |
 
 
@@ -16,7 +16,9 @@
 
 ## Deploy Cartography and Neo4j
 
-![](../../.github/components/cartography_setup.png)
+<div style="text-align:center">
+  <img src="../../.github/components/cartography_setup.png" width="50%">
+</div>
 
 * Deploy Cartography and Neo4j:
   ```bash
@@ -88,7 +90,9 @@ the data folder on the host (and to remove the same folder to reset the installa
   * Username: `neo4j`
   * Password: stored in Vault at `secret/cartography/neo4j-password`
 
-![](../../.github/components/neo4j_ui.png)
+<div style="text-align:center">
+  <img src="../../.github/components/neo4j_ui.png" width="50%">
+</div>
 
 
 ---
@@ -96,7 +100,9 @@ the data folder on the host (and to remove the same folder to reset the installa
 
 ## Elasticsearch Ingestor
 
-![](../../.github/components/cartography_elk.png)
+<div style="text-align:center">
+  <img src="../../.github/components/cartography_elk.png" width="50%">
+</div>
 
 The Elasticsearch Ingestor is a CronJob which executes
 a set of [custom queries](https://github.com/marco-lancini/cartography-queries/tree/main/queries)
