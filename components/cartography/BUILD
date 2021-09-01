@@ -173,7 +173,6 @@ kustomize(
     srcs = [":kustomize-elastic-ingestor"],
 )
 
-
 kustomize(
     name = "elastic-ingestor-minikube",
     namespace = "cartography",
