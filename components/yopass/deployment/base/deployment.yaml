@@ -12,6 +12,10 @@ spec:
       labels:
         app.kubernetes.io/name: yopass
     spec:
+      securityContext:
+        runAsUser: 31000
+        runAsGroup: 31000
+        fsGroup: 31000
       containers:
         - name: yopass
           image: jhaals/yopass
@@ -27,6 +31,8 @@ spec:
             requests:
               cpu: 100m
               memory: 50Mi
+          securityContext:
+            allowPrivilegeEscalation: false
         - name: yopass-memcached
           image: memcached
           resources:

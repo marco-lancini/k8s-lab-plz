@@ -1,7 +1,6 @@
 #! /bin/bash
 
 NAMESPACE="yopass"
-# SELECTOR="control-plane=elastic-operator"
 TARGET=$1
 if [[ $# -lt 1 ]] ; then
     TARGET="minikube"
