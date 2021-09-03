@@ -14,6 +14,7 @@ Usage for supported components:
 | Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/)  | `metrics`                                        |
 | Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/)       | `kafka`                                          |
 | Cartography                                              | [docs](components/cartography/) | `cartography`                                    |
+| Yopass                                                   | [docs](components/yopass/)      | `yopass`                                         |
 
 
 ## Prerequisites
@@ -34,6 +35,7 @@ Usage for supported components:
 * [X] ~~Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)~~
 * [X] ~~Baremetal Setup (Load Balancing, Volumes, etc.)~~
 * [X] ~~Cartography~~
+* [X] ~~Yopass~~
 * [ ] Istio
 * [ ] Gatekeeper
 * [ ] Falco
