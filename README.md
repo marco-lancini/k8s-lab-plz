@@ -1,6 +1,6 @@
-# K8S-LAB-PLZ
+<p align="center"><img src=".github/k8s_lab_plz_logo.png" width="60%"></p>
 
-Modular Kubernetes Lab which provides an easy and streamlined way (managed via [please.build](https://please.build/)) to deploy a test cluster with support for different components.
+`k8s-lab-plz` is a modular Kubernetes lab which provides an easy and streamlined way (managed via [please.build](https://please.build/)) to deploy a test cluster with support for different components.
 
 Each component can be deployed in a repeatable way with one single command.
 
@@ -20,9 +20,9 @@ Usage for supported components:
 ## Prerequisites
 * Minikube (see [official docs](https://kubernetes.io/docs/tasks/tools/install-minikube/) for your OS) or Baremetal Kubernetes (see [baremetal setup](docs/baremetal_setup.md))
   * If using minikube, ensure it is up and running:
-  ```bash
-  ❯ minikube start --cpus 4 --memory 6098
-  ```
+    ```bash
+    ❯ minikube start --cpus 4 --memory 6098
+    ```
 * Docker (see [official docs](https://docs.docker.com/get-docker/) for your OS)
 * Plz (see [official docs](https://please.build/quickstart.html) for your OS)
 * Helm 3 (see [official docs](https://helm.sh/docs/intro/install/) for your OS)
