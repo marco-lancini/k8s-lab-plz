@@ -18,7 +18,7 @@ Usage for supported components:
 
 
 ## Prerequisites
-* Minikube (see [official docs](https://kubernetes.io/docs/tasks/tools/install-minikube/) for your OS) or Baremetal Kubernetes (see [baremetal setup](docs/baremetal_setup.md))
+* Minikube (see [official docs](https://kubernetes.io/docs/tasks/tools/install-minikube/) for your OS) or Baremetal Kubernetes (see [baremetal setup](components/baremetal/))
   * If using minikube, ensure it is up and running:
     ```bash
     ❯ minikube start --cpus 4 --memory 6098
