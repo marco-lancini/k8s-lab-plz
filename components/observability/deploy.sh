@@ -1,6 +1,6 @@
 #! /bin/bash
 
-NAMESPACE="metrics"
+NAMESPACE="observability"
 
 wait_pod () {
 status=$(kubectl -n ${NAMESPACE} get pods --selector="${2}" -o json | jq '.items[].status.phase')
@@ -16,8 +16,8 @@ printf "\t[*] $1 is ready\n"
 #
 # Create namespace
 #
-printf "[+] Creating metrics namespace...\n"
-plz run //components/prometheus:metrics-namespace_push
+printf "[+] Creating observability namespace...\n"
+plz run //components/prometheus:observability-namespace_push
 
 #
 # Deploying Prometheus Operator

@@ -19,14 +19,14 @@ helm_chart(
     name = "prometheus-helm",
     src = "//third_party:helm-prometheus-tar",
     install_path = "prometheus-operator",
-    namespace = "metrics",
+    namespace = "observability",
     visibility = ["//components/prometheus/..."],
     deps = [
-        ":metrics-namespace",
+        ":observability-namespace",
     ]
 )
 
 k8s_config(
-    name = "metrics-namespace",
-    srcs = ["k8s/metrics-namespace.yaml"],
+    name = "observability-namespace",
+    srcs = ["k8s/namespace.yaml"],
 )
