@@ -5,14 +5,14 @@
 ```bash
 ❯ plz run //components/prometheus:deploy
 ```
-* Creates `metrics` namespace
+* Creates `observability` namespace
 * Deploys the Prometheus Operator
 * Deploys a Grafana
 * Deploys a Alertmanager
 
 Verify pods are healthy:
 ```bash
-❯ kubectl -n metrics get pods
+❯ kubectl -n observability get pods
 NAME                                                     READY   STATUS      RESTARTS   AGE
 alertmanager-prometheus-helm-prometheus-alertmanager-0   2/2     Running     0          6s
 prometheus-helm-grafana-5fc87c9979-vszqg                 2/2     Running     0          76s

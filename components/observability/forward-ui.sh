@@ -1,6 +1,6 @@
 #! /bin/bash
 
-NAMESPACE="metrics"
+NAMESPACE="observability"
 GRAFANA_USER=$(kubectl -n ${NAMESPACE} get secrets prometheus-helm-grafana -o=jsonpath='{.data.admin-user}' | base64 --decode)
 GRAFANA_PASSWORD=$(kubectl -n ${NAMESPACE} get secrets prometheus-helm-grafana -o=jsonpath='{.data.admin-password}' | base64 --decode)
 

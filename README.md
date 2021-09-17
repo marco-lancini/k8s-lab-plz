@@ -6,15 +6,15 @@ Each component can be deployed in a repeatable way with one single command.
 
 Usage for supported components:
 
-| Component                                                | Usage                           | Namespace                                        |
-| -------------------------------------------------------- | ------------------------------- | ------------------------------------------------ |
-| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/)   | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
-| Vault                                                    | [docs](components/vault/)       | `vault`                                          |
-| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/)         | `elastic-system`                                 |
-| Metrics (Prometheus, Grafana, Alertmanager)              | [docs](components/prometheus/)  | `metrics`                                        |
-| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/)       | `kafka`                                          |
-| Cartography                                              | [docs](components/cartography/) | `cartography`                                    |
-| Yopass                                                   | [docs](components/yopass/)      | `yopass`                                         |
+| Component                                                | Usage                             | Namespace                                        |
+| -------------------------------------------------------- | --------------------------------- | ------------------------------------------------ |
+| Baremetal Setup (Load Balancing, Volumes, etc.)          | [docs](components/baremetal/)     | `ingress-nginx`<br>`metallb-system`<br>`haproxy` |
+| Vault                                                    | [docs](components/vault/)         | `vault`                                          |
+| ELK (Elasticsearch, Kibana, Filebeats)                   | [docs](components/elk/)           | `elastic-system`                                 |
+| Observability (Prometheus, Grafana, Alertmanager)        | [docs](components/observability/) | `observability`                                  |
+| Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator) | [docs](components/kafka/)         | `kafka`                                          |
+| Cartography                                              | [docs](components/cartography/)   | `cartography`                                    |
+| Yopass                                                   | [docs](components/yopass/)        | `yopass`                                         |
 
 
 ## Prerequisites
@@ -31,7 +31,7 @@ Usage for supported components:
 ## Roadmap
 * [X] ~~Vault~~
 * [X] ~~ELK (Elasticsearch, Kibana, Filebeats)~~
-* [X] ~~Metrics (Prometheus, Grafana, Alertmanager)~~
+* [X] ~~Observability (Prometheus, Grafana, Alertmanager)~~
 * [X] ~~Kafka (Kafka, Zookeeper, KafkaExporter, Entity Operator)~~
 * [X] ~~Baremetal Setup (Load Balancing, Volumes, etc.)~~
 * [X] ~~Cartography~~
