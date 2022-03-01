@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: 🏷 Apply labels
-        uses: actions/labeler@v3.0.2
+        uses: actions/labeler@v3.1.0
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
